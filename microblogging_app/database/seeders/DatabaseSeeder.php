@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
             CommentairesSeeder::class,
             LikesSeeder::class,
             ProfilUsersSeeder::class
-
         ]);
 
 

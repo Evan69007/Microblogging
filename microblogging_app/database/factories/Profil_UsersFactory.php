@@ -22,7 +22,7 @@ class Profil_UsersFactory extends Factory
             'user_id'=> $this->faker->numberBetween(1, 10),
             'biographie'=>$this->faker->paragraph(),
             'created_at' => Carbon::now(),
-             'updated_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ];
     }
 }

@@ -13,8 +13,9 @@ class Profil_Users extends Model
     */
     // indique ce qu'on va remplir avec le seeder
    protected $fillable = [
-    'user_id',
-    'biographie',
+		'user_id',
+		'biographie',
+	];
 
-];
+	protected $table = 'profil_users';
 }
