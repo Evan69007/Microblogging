@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 class Profil_Users extends Model
 {
@@ -18,4 +20,10 @@ class Profil_Users extends Model
 	];
 
 	protected $table = 'profil_users';
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+
+    }
 }
