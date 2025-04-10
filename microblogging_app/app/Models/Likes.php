@@ -13,18 +13,17 @@ class Likes extends Model
     */
     // indique ce qu'on va remplir avec le seeder
    protected $fillable = [
-    'user_id',
-    'post_id',
+		'user_id',
+		'post_id',
+	];
 
-];
+	public function user(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'user_id');
+	}
 
-public function user(): BelongsTo
-{
-    return $this->belongsTo(User::class, 'user_id');
-}
-
-public function post(): BelongsTo
-{
-    return $this->belongsTo(Post::class, 'post_id');
-}
+	public function post(): BelongsTo
+	{
+		return $this->belongsTo(Post::class, 'post_id');
+	}
 }
