@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 
-Route::get("/Users", [UserController::class, 'index']);
-
-
-
 Route::get("/Posts", [PostController::class, 'index']);
 Route::post("/Posts", [PostController::class, 'store']);
 Route::get("/Posts/{id}", [PostController::class, 'show']);
@@ -41,3 +37,10 @@ Route::post("/likes", [LikesController::class, 'store']);
 Route::get("/likes/{id}", [LikesController::class, 'show']);
 Route::put("/likes/{id}", [LikesController::class, 'update']);
 Route::delete("/likes/{id}", [LikesController::class, 'destroy']);
+
+
+Route::get("/User", [UserController::class, 'index']);
+Route::post("/User", [UserController::class, 'store']);
+Route::get("/User/{id}", [UserController::class, 'show']);
+Route::put("/User/{id}", [UserController::class, 'update']);
+Route::delete("/User/{id}", [UserController::class, 'destroy']);
