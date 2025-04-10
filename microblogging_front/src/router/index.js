@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 // Import de ta vue principale (page d’accueil)
 import HomePMC from "@/views/HomePMC.vue";
+import Connexion from "@/views/Connexion.vue";
 
 // Déclaration des routes
 const routes = [
@@ -12,6 +13,7 @@ const routes = [
     path: "/", // URL de la page
     component: HomePMC, // Composant à afficher (la vue)
   },
+  { path: "/connexion", component: Connexion },
   // Tu pourras ajouter d'autres routes ici, par exemple :
   // { path: "/connexion", component: Connexion },
   // { path: "/profil", component: Profil },

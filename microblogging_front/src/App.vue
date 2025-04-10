@@ -1,28 +1,24 @@
-<script setup>
-// Importation du système de routing (affiche la vue selon l'URL)
-import { RouterView } from "vue-router";
-
-// Import de la barre de navigation principale
-import NavBar from "./components/NavBar/NavBarPMC.vue";
-</script>
-
 <template>
-  <div class="app">
-    <!-- Barre de navigation visible sur toutes les pages -->
-    <NavBar />
+  <div id="app">
+    <!-- Masquer la navbar si la route est '/connexion' -->
+    <NavBar v-if="!isConnexionPage" />
+    <!-- La navbar sera masquée sur la page de connexion -->
 
-    <!-- Zone de contenu principal (vue dynamique injectée ici) -->
-    <main class="pt-28">
-      <!-- pt-28 : padding top de 7rem (112px) pour éviter que la navbar en position fixed masque le contenu -->
-      <RouterView />
-    </main>
+    <!-- Affichage de la vue active (vue de la route actuelle) -->
+    <router-view />
   </div>
 </template>
 
-<style>
-/* Classe globale de l'application : prend toute la hauteur de l'écran + couleur de fond */
-.app {
-  min-height: 100vh;
-  background-color: #f5f5f5;
-}
+<script setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import NavBar from "@/components/NavBar/NavBarPMC.vue"; // Assure-toi que ta navbar est importée
+
+// Utilise la route actuelle pour déterminer si on est sur la page de connexion
+const route = useRoute();
+const isConnexionPage = computed(() => route.path === "/connexion"); // Si la route est '/connexion', on cache la navbar
+</script>
+
+<style scoped>
+/* Tu peux ajouter des styles supplémentaires ici si nécessaire */
 </style>
