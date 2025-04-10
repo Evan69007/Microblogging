@@ -1,24 +1,17 @@
 <template>
   <div class="flex justify-center items-center min-h-screen bg-gray-800">
-    <!-- Conteneur principal avec deux colonnes -->
     <div class="flex w-full max-w-7xl">
-      <!-- Logo Section à gauche -->
       <div class="flex-1 p-8 flex justify-center items-center">
-        <Logo class="w- 120" />
-        <!-- Agrandir le logo en ajustant la largeur -->
+        <Logo class="w-120" />
       </div>
 
-      <!-- Form Section à droite -->
       <div class="flex-1 bg-white p-8 rounded-xl shadow-lg mt-32">
-        <!-- Testons avec mt-16 pour plus d'espace -->
         <div class="text-center mb-6">
           <h2 class="text-2xl text-gray-600 mb-2">Connexion</h2>
           <div class="text-sm text-gray-500 mb-4">Entrez vos identifiants</div>
         </div>
 
-        <!-- Form -->
         <form @submit.prevent="submitForm">
-          <!-- Email Input -->
           <div class="mb-6">
             <label for="email" class="block text-sm font-medium text-gray-700"
               >E-mail</label
@@ -32,7 +25,6 @@
             />
           </div>
 
-          <!-- Password Input -->
           <div class="mb-6">
             <label
               for="password"
@@ -48,7 +40,6 @@
             />
           </div>
 
-          <!-- Submit Button -->
           <div class="mb-6">
             <button
               type="submit"
@@ -58,7 +49,6 @@
             </button>
           </div>
 
-          <!-- Mot de passe oublié -->
           <div class="text-center mb-6">
             <a href="#" class="text-sm text-gray-600 hover:text-orange-500"
               >Mot de passe oublié</a
@@ -66,7 +56,6 @@
           </div>
         </form>
 
-        <!-- Registration Link -->
         <div class="text-center">
           <p class="text-gray-600">Pas encore de compte ?</p>
           <router-link
@@ -92,8 +81,8 @@ const error = ref("");
 const router = useRouter();
 
 const fakeUsers = [
-  { email: "laura@mail.com", password: "123456" },
-  { email: "john@mail.com", password: "azerty" },
+  { email: "laura@mail.com", password: "123456", firstName: "Laura" },
+  { email: "john@mail.com", password: "azerty", firstName: "John" },
 ];
 
 function submitForm() {
@@ -102,6 +91,11 @@ function submitForm() {
   );
 
   if (user) {
+    // Enregistrer seulement le prénom de l'utilisateur dans localStorage
+    localStorage.setItem("isUserLoggedIn", "true");
+    localStorage.setItem("userName", user.firstName); // Stocke le prénom seulement
+
+    // Rediriger vers la page du profil après la connexion
     router.push("/profil");
   } else {
     error.value = "Email ou mot de passe incorrect";
