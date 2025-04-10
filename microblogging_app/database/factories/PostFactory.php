@@ -22,6 +22,7 @@ class PostFactory extends Factory
         return [
             'created_at' => Carbon::now(),
             'user_id'=> $this->faker->numberBetween(1, 10),
+            'titre'=>$this->faker->sentence(),
             'description'=>$this->faker->paragraph(),
             'hashtags'=>$this->faker->randomElements(
                 ['#tech', '#code', '#laravel', '#php', '#opensource', '#ada', '#devlife'],

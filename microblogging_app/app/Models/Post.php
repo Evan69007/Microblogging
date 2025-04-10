@@ -16,6 +16,7 @@ class Post extends Model
     // indique ce qu'on va remplir avec le seeder
    protected $fillable = [
        'user_id',
+       'titre',
        'description',
        'hashtags',
 
