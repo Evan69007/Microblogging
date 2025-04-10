@@ -1,47 +1,45 @@
 <template>
-  <!-- Carte du post avec style dynamique basé sur la couleur du post -->
-  <div
-    class="p-4 bg-white text-black rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-    :class="post.couleur"
-  >
-    <!-- Titre du post : en majuscules, gras, taille xl -->
-    <h3 class="text-xl font-bold uppercase mb-2">{{ post.titre }}</h3>
-
-    <!-- Contenu du post : texte standard, gris foncé -->
-    <p class="text-l text-gray-800 mb-4">{{ post.contenu }}</p>
-
-    <!-- Informations sur l’auteur et la date de publication -->
-    <div class="flex justify-between items-center text-xs text-gray-600 mb-2">
-      <span>Par {{ post.auteur }}</span>
-      <span>{{ post.date }}</span>
+  <div class="bg-gray-900 p-6 rounded-xl shadow-lg">
+    <!-- Post Header -->
+    <div class="flex justify-between items-start">
+      <h3 class="text-xl font-semibold text-orange-400">{{ post.title }}</h3>
+      <div class="text-sm text-gray-500">{{ post.date }}</div>
     </div>
 
-    <!-- Liste des tags : bouclés avec v-for, style badge -->
-    <div class="flex flex-wrap gap-1 mb-3">
-      <span
-        v-for="tag in post.tags"
-        :key="tag"
-        class="text-xs bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full"
-      >
-        {{ tag }}
-      </span>
+    <!-- Post Content -->
+    <p class="text-lg text-gray-300 mt-4">{{ post.content }}</p>
+
+    <!-- Post Author -->
+    <div class="flex items-center space-x-2 mt-4">
+      <span class="text-gray-400">Publié par</span>
+      <span class="text-yellow-300">{{ post.author }}</span>
     </div>
 
-    <!-- Affichage des likes et commentaires avec des icônes -->
-    <div class="flex justify-between items-center text-sm font-medium">
-      <span class="text-pink-600">❤️ {{ post.likes }}</span>
-      <span class="text-blue-600">💬 {{ post.comments }}</span>
+    <!-- Post Footer: Tags, Likes, Comments -->
+    <div class="flex items-center justify-between mt-4">
+      <div class="flex space-x-3">
+        <span v-for="tag in post.tags" :key="tag" class="text-sm text-teal-400"
+          >#{{ tag }}</span
+        >
+      </div>
+      <div class="flex space-x-3">
+        <span class="flex items-center">
+          <heart-icon class="text-red-500" /> {{ post.likes }}
+        </span>
+        <span class="flex items-center">
+          <comment-icon class="text-blue-500" /> {{ post.comments }}
+        </span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-// Déclaration de la prop "post" attendue depuis le composant parent
 defineProps({
   post: Object,
 });
 </script>
 
 <style scoped>
-/* Aucun style spécifique ici pour le moment */
+/* Styles spécifiques à la carte de post */
 </style>

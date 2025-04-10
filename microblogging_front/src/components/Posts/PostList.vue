@@ -1,6 +1,6 @@
 <template>
-  <!-- Conteneur centré, largeur max 3xl, avec marge intérieure et espacement vertical -->
-  <div class="max-w-3xl mx-auto pt-28 space-y-6 px-4">
+  <!-- Conteneur centré, largeur max 5xl, avec marge intérieure et espacement vertical -->
+  <div class="max-w-5xl mx-auto pt-28 space-y-14 px-8">
     <!-- Boucle sur la liste des posts triés, et affiche chaque post avec le composant PostCard -->
     <PostCard v-for="post in sortedPosts" :key="post.id" :post="post" />
   </div>

@@ -10,7 +10,7 @@
       <div class="flex justify-center space-x-16 pb-4">
         <button
           @click="navigateTo('/')"
-          class="bg-white text-black font-bold px-6 py-1 rounded-full border-4 border-green-800 hover:bg-gray-200 transition uppercase tracking-wide text-xl"
+          class="bg-gray-800 text-white font-bold px-6 py-1 rounded-full border-4 border-green-800 hover:bg-green-900 transition uppercase tracking-wide text-xl"
         >
           HOME
         </button>
@@ -24,7 +24,7 @@
 
         <button
           @click="navigateTo('/post')"
-          class="bg-gray-800 text-white font-bold px-6 py-1 rounded-full border-4 border-red-500 hover:bg-red-400 transition uppercase tracking-wide text-xl"
+          class="bg-gray-800 text-white font-bold px-6 py-1 rounded-full border-4 border-orange-600 hover:bg-orange-700 transition uppercase tracking-wide text-xl"
         >
           + POST
         </button>
