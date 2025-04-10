@@ -1,18 +1,21 @@
 <template>
+  <!-- Conteneur principal, en colonne, sur toute la hauteur de l’écran -->
   <div class="flex flex-col min-h-screen bg-gray-800 text-white font-sans">
+    <!-- Bloc principal (sidebar + contenu) -->
     <div class="flex flex-1">
-      <!-- Sidebar filtres -->
+      <!-- Sidebar désactivée pour le moment -->
       <!-- <FiltreSideBar /> -->
 
       <!-- Contenu principal -->
       <main class="flex-1 p-6 overflow-y-auto">
+        <!-- Titre de section -->
         <h2
           class="text-center text-2xl font-bold tracking-widest mb-6 text-gray-100"
         >
           DERNIERS POSTS
         </h2>
 
-        <!-- Liste des posts -->
+        <!-- Liste des posts (affiché avec PostList) -->
         <PostList :posts="posts" />
       </main>
     </div>
@@ -20,9 +23,13 @@
 </template>
 
 <script setup>
-//import FiltreSideBar from "@/components/FiltreSideBar.vue";
+// Import de la sidebar (commenté pour l’instant)
+// import FiltreSideBar from "@/components/FiltreSideBar.vue";
+
+// Import du composant qui affiche la liste des posts
 import PostList from "@/components/Posts/PostList.vue";
 
+// Données simulées pour affichage des posts
 const posts = [
   {
     id: 1,
@@ -99,4 +106,6 @@ const posts = [
 ];
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Aucun style spécifique ici pour le moment */
+</style>
