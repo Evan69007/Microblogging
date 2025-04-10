@@ -4,7 +4,7 @@
     <div class="absolute top-32 right-16 z-10">
       <button
         @click="editProfile"
-        class="bg-orange-600 text-white py-2 px-6 rounded-md hover:bg-orange-700 transition"
+        class="bg-green-800 text-white py-2 px-6 rounded-md hover:bg-orange-700 transition"
       >
         Modifier Profil
       </button>
