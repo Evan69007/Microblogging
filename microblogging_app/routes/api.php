@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+// Cette ligne génère automatiquement toutes les routes REST pour posts
+Route::resource('posts', PostController::class);
+Route::resource('users', UserController::class);
 
 Route::get("/Posts", [PostController::class, 'index']);
 Route::post("/Posts", [PostController::class, 'store']);
