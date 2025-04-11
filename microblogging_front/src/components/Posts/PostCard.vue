@@ -36,7 +36,7 @@
     <div v-if="post.author === currentUser" class="mt-4 flex justify-between">
       <button
         @click="editPost"
-        class="bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600"
+        class="bg-green-800 text-white py-1 px-4 rounded-md hover:bg-blue-600"
       >
         Modifier
       </button>
