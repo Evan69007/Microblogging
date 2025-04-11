@@ -7,6 +7,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePMC from "@/views/HomePMC.vue";
 import Connexion from "@/views/Connexion.vue";
 import Profil from "@/views/Profil.vue";
+import AjoutPost from "../views/AjoutPost.vue";
 
 // Déclaration des routes
 const routes = [
@@ -16,6 +17,7 @@ const routes = [
   },
   { path: "/connexion", component: Connexion },
   { path: "/profil", component: Profil },
+  { path: "/post", component: AjoutPost },
   // Tu pourras ajouter d'autres routes ici, par exemple :
   // { path: "/connexion", component: Connexion },
   // { path: "/profil", component: Profil },
