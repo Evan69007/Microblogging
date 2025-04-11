@@ -15,7 +15,7 @@
               v-model="newPost.title"
               type="text"
               placeholder="Titre de votre post"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               required
             />
           </div>
@@ -28,7 +28,7 @@
               id="content"
               v-model="newPost.content"
               placeholder="Écrivez votre post ici"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               rows="5"
               required
             ></textarea>
