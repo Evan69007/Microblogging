@@ -12,15 +12,12 @@
 
     <!-- Conteneur en flex pour la biographie et les posts -->
     <div class="flex gap-16 pt-32 px-16 items-stretch">
-      <!-- items-stretch pour égaliser la hauteur des deux sections -->
       <!-- Section Biographie (à gauche) -->
       <div
         class="flex-1 text-center bg-gray-900 p-6 rounded-xl shadow-lg max-h-[700px] sticky top-32"
       >
         <h2 class="text-5xl text-gray-400 mb-4">Biographie</h2>
-        <!-- Prénom de l'utilisateur en jaune, gras et plus grand -->
         <p class="text-7xl text-yellow-300 font-bold">{{ userName }}</p>
-        <!-- Description de l'utilisateur -->
         <p class="text-2xl text-gray-300 mt-4">{{ biography }}</p>
       </div>
 
@@ -28,7 +25,11 @@
       <div class="flex-1 max-w-5xl mx-auto pt-1 space-y-8 px-2 overflow-y-auto">
         <!-- Affichage de tous les posts de l'utilisateur -->
         <div v-for="(post, index) in userPosts" :key="index">
-          <PostCard :post="post" />
+          <PostCard
+            :post="post"
+            @editPost="editPost"
+            @deletePost="deletePost"
+          />
         </div>
       </div>
     </div>
@@ -43,14 +44,12 @@ import PostCard from "@/components/Posts/PostCard.vue"; // Importer le composant
 const userName = ref("Laura"); // Prénom de l'utilisateur
 const biography = ref(
   "Développeuse full stack passionnée par le clean code et le partage de connaissances, je transforme les lignes de code en solutions concrètes. Curieuse et toujours en veille, j’aime expérimenter, documenter et transmettre mes découvertes."
-);
-
-// Simuler des posts de l'utilisateur
+); // Biographie
 const allPosts = ref([
+  // Liste de posts simulée
   {
     title: "Zoom sur une fonction PHP ou JS",
-    content:
-      '"array_filter()" en PHP, c’est la magie pour nettoyer des tableaux en un clin d’œil. Bonus : tu peux l’utiliser avec une fonction anonyme.',
+    content: "Description...",
     date: "08/04/2025",
     author: "Laura",
     tags: ["astuces", "languages"],
@@ -58,91 +57,62 @@ const allPosts = ref([
     comments: 2,
   },
   {
-    title: "Question technique",
-    content:
-      '"Vous utilisez plutôt v-model ou des props/emit dans Vue 3 pour les formulaires ? Curieuse de vos habitudes ! #DevTalk"',
-    date: "08/04/2025",
-    author: "Laura",
-    tags: ["astuces", "languages"],
-    likes: 3,
-    comments: 1,
-  },
-  {
-    title: "Réflexion perso",
-    content:
-      "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
+    title: "Zoom sur une fonction PHP ou JS",
+    content: "Description...",
     date: "08/04/2025",
     author: "Laura",
     tags: ["astuces", "languages"],
     likes: 4,
-    comments: 1,
+    comments: 2,
   },
   {
-    title: "Réflexion perso",
-    content:
-      "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
+    title: "Zoom sur une fonction PHP ou JS",
+    content: "Description...",
     date: "08/04/2025",
     author: "Laura",
     tags: ["astuces", "languages"],
     likes: 4,
-    comments: 1,
+    comments: 2,
   },
   {
-    title: "Réflexion perso",
-    content:
-      "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
+    title: "Zoom sur une fonction PHP ou JS",
+    content: "Description...",
     date: "08/04/2025",
     author: "Laura",
     tags: ["astuces", "languages"],
     likes: 4,
-    comments: 1,
+    comments: 2,
   },
   {
-    title: "Réflexion perso",
-    content:
-      "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
+    title: "Zoom sur une fonction PHP ou JS",
+    content: "Description...",
     date: "08/04/2025",
     author: "Laura",
     tags: ["astuces", "languages"],
     likes: 4,
-    comments: 1,
-  },
-  {
-    title: "Réflexion perso",
-    content:
-      "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
-    date: "08/04/2025",
-    author: "Laura",
-    tags: ["astuces", "languages"],
-    likes: 4,
-    comments: 1,
-  },
-  {
-    title: "Réflexion perso",
-    content:
-      "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
-    date: "08/04/2025",
-    author: "Laura",
-    tags: ["astuces", "languages"],
-    likes: 4,
-    comments: 1,
+    comments: 2,
   },
 ]);
 
-// Filtrer les posts de l'utilisateur (ici tous les posts sont de l'utilisateur "Laura")
+// Filtrer les posts de l'utilisateur
 const userPosts = ref(
   allPosts.value.filter((post) => post.author === userName.value)
 );
 
-// Fonction pour éditer le profil
-function editProfile() {
-  console.log("Modification du profil...");
+// Fonction pour éditer un post
+function editPost(post) {
+  console.log("Modification du post:", post);
+  // Ajoute la logique de modification ici (par exemple, ouvrir un modal ou rediriger vers un formulaire)
+}
+
+// Fonction pour supprimer un post
+function deletePost(post) {
+  console.log("Suppression du post:", post);
+  // Ajoute la logique pour supprimer le post (par exemple, le retirer de la liste)
+  userPosts.value = userPosts.value.filter((p) => p !== post);
 }
 </script>
 
 <style scoped>
-/* Appliquer un espacement vertical entre chaque post */
-.flex-1 > * + * {
-  margin-top: 4rem; /* Augmenter l'espacement entre les posts */
-}
+/* Styles spécifiques à Profil.vue */
 </style>
