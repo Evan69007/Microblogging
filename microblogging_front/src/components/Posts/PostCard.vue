@@ -31,13 +31,53 @@
         </span>
       </div>
     </div>
+
+    <!-- Buttons to Edit and Delete the Post, only visible to the author -->
+    <div v-if="post.author === currentUser" class="mt-4 flex justify-between">
+      <button
+        @click="editPost"
+        class="bg-blue-500 text-white py-1 px-4 rounded-md hover:bg-blue-600"
+      >
+        Modifier
+      </button>
+      <button
+        @click="deletePost"
+        class="bg-red-500 text-white py-1 px-4 rounded-md hover:bg-red-600"
+      >
+        Supprimer
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
+
+// Propriétés passées par le parent
 defineProps({
   post: Object,
 });
+
+// Référence à l'utilisateur connecté (par exemple, depuis localStorage)
+const currentUser = ref("");
+
+// Fonction pour récupérer l'utilisateur connecté (à partir de localStorage par exemple)
+onMounted(() => {
+  currentUser.value = localStorage.getItem("userName"); // Remplace par la méthode que tu utilises pour gérer l'utilisateur connecté
+});
+
+// Événements pour modifier et supprimer un post
+const emit = defineEmits(["editPost", "deletePost"]);
+
+// Fonction pour appeler l'événement de modification
+function editPost() {
+  emit("editPost", post);
+}
+
+// Fonction pour appeler l'événement de suppression
+function deletePost() {
+  emit("deletePost", post);
+}
 </script>
 
 <style scoped>
