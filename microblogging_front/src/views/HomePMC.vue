@@ -1,6 +1,11 @@
 <template>
   <div class="bg-gray-800 text-white min-h-screen pt-32 pb-8">
     <!-- Ajout du padding-top pour éviter que la navbar cache les posts -->
+
+    <!-- Titre pour les posts -->
+    <div class="flex justify-center">
+      <h2 class="text-4xl text-gray-200 mb-8">Tous les Posts</h2>
+    </div>
     <!-- Liste des posts centrée -->
     <div class="flex justify-center">
       <div class="w-full max-w-4xl space-y-6 overflow-y-auto">
