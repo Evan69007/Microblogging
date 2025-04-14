@@ -19,7 +19,7 @@ class Profil_UsersFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=> $this->faker->numberBetween(1, 10),
+            'user_id'=> $this->faker->numberBetween(1, 4),
             'biographie'=>$this->faker->paragraph(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

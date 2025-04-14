@@ -19,7 +19,7 @@ class LikesFactory extends Factory
     {
         return [
 
-            'user_id'=> $this->faker->numberBetween(1, 10),
+            'user_id'=> $this->faker->numberBetween(1, 4),
             'post_id'=>$this->faker->numberBetween(1, 10),
             'created_at' => Carbon::now(),
              'updated_at' => Carbon::now(),
