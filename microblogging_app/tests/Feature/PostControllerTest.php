@@ -18,8 +18,6 @@ class PostControllerTest extends TestCase
             'name' => 'Jacque',
             'email' => 'j@test.com',
             'password' => 'admin'
-           
-        
         ]);
 
         // Simulate a user creating a new post through the web interface
