@@ -21,7 +21,7 @@ class CommentairesFactory extends Factory
     {
         return [
 
-                'user_id'=> $this->faker->numberBetween(1, 10),
+                'user_id'=> $this->faker->numberBetween(1, 4),
                 'post_id'=>$this->faker->numberBetween(1, 10),
                 'description'=>$this->faker->paragraph(),
                 'created_at' => Carbon::now(),
