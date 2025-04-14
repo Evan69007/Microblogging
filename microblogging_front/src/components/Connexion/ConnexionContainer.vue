@@ -18,7 +18,7 @@
             >
             <input
               id="email"
-              v-model="email"
+              v-model="formData.email"
               type="email"
               placeholder="email..."
               class="w-full p-3 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -33,7 +33,7 @@
             >
             <input
               id="password"
-              v-model="password"
+              v-model="formData.password"
               type="password"
               placeholder="Mot de passe..."
               class="w-full p-3 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -70,39 +70,51 @@
   </div>
 </template>
 
-<script setup>
+<script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+/* import axios from "axios"; */
 import Logo from "@/components/NavBar/Logo.vue"; // Importation du composant Logo
 
-const email = ref("");
-const password = ref("");
-const error = ref("");
-const router = useRouter();
+export default {
+  setup() {
+    const router = useRouter();
+    const formData = ref({
+      email: "",
+      password: "",
+    });
 
-const fakeUsers = [
-  { email: "laura@mail.com", password: "123456", firstName: "Laura" },
-  { email: "john@mail.com", password: "azerty", firstName: "John" },
-];
+    const submitForm = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/login", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData.value),
+        });
+        /* const response = await axios.post(
+          "http://localhost:8000/api/login",
+          formData.value,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        ); */
+        const data = await response.json();
+        if (data.access_token) {
+          sessionStorage.setItem("access_token", JSON.stringify(data));
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
 
-function submitForm() {
-  const user = fakeUsers.find(
-    (u) => u.email === email.value && u.password === password.value
-  );
-
-  if (user) {
-    // Enregistrer seulement le prénom de l'utilisateur dans localStorage
-    localStorage.setItem("isUserLoggedIn", "true");
-    localStorage.setItem("userName", user.firstName); // Stocke le prénom seulement
-
-    // Rediriger vers la page du profil après la connexion
-    router.push("/profil");
-  } else {
-    error.value = "Email ou mot de passe incorrect";
-  }
-}
+    // Return formData so it's available in the template
+    return { formData, submitForm };
+  },
+};
 </script>
-
-<style scoped>
-/* Ajoute des styles personnalisés ici si nécessaire */
-</style>
