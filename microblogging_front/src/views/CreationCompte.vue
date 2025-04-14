@@ -67,13 +67,6 @@
               required
             />
           </div>
-
-          <!-- Intégration du composant Biography -->
-          <Biography
-            :biography="form.biography"
-            @updateBiography="updateBiography"
-          />
-
           <div>
             <button
               type="submit"
@@ -103,7 +96,6 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import Biography from "@/components/Profil/Biography.vue"; // Assure-toi que le composant Biography est bien importé
 
 // Formulaire de création de compte / modification de profil
 const form = ref({
@@ -133,13 +125,7 @@ function submitForm() {
     email: "",
     password: "",
     confirmPassword: "",
-    biography: "",
   };
-}
-
-// Fonction pour mettre à jour la biographie
-function updateBiography(newBiography) {
-  form.value.biography = newBiography;
 }
 </script>
 

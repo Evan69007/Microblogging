@@ -35,6 +35,7 @@ const allPosts = ref([
     comments: 2,
   },
   {
+    id: 1,
     title: "Question technique",
     content:
       '"Vous utilisez plutôt v-model ou des props/emit dans Vue 3 pour les formulaires ? Curieuse de vos habitudes ! #DevTalk"',
@@ -45,6 +46,7 @@ const allPosts = ref([
     comments: 1,
   },
   {
+    id: 2,
     title: "Réflexion perso",
     content:
       "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
@@ -55,6 +57,7 @@ const allPosts = ref([
     comments: 1,
   },
   {
+    id: 3,
     title: "Réflexion perso",
     content:
       "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
@@ -65,6 +68,7 @@ const allPosts = ref([
     comments: 1,
   },
   {
+    id: 4,
     title: "Réflexion perso",
     content:
       "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
@@ -75,6 +79,7 @@ const allPosts = ref([
     comments: 1,
   },
   {
+    id: 5,
     title: "Réflexion perso",
     content:
       "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
@@ -85,6 +90,7 @@ const allPosts = ref([
     comments: 1,
   },
   {
+    id: 6,
     title: "Réflexion perso",
     content:
       "\"Aujourd'hui j'ai compris que git stash me sauve la vie quand je bricole avant un pull. L'outil magique du chaos\"",
