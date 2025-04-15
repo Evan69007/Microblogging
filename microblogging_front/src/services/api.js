@@ -10,10 +10,20 @@ const api = axios.create({
   }
 });
 
+// Ajout du token dans les headers par défaut si disponible
+const token = JSON.parse(sessionStorage.getItem('access_token'));
+if (token?.access_token) {
+  api.defaults.headers.common['Authorization'] = `Bearer ${token.access_token}`;
+}
+
 export default {
+  async getUser() {
+    const response = await api.get('/user');
+    return response.data;
+  },
+
   async getPosts() {
     const response = await api.get('/posts');
-    console.log(" API reponse:", response.data); 
     return response.data;
   },
 
@@ -32,4 +42,3 @@ export default {
     return response.data;
   }
 };
-
