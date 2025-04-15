@@ -106,6 +106,23 @@ export default {
         const data = await response.json();
         if (data.access_token) {
           sessionStorage.setItem("access_token", JSON.stringify(data));
+		  try {
+			const access_token = JSON.parse(sessionStorage.getItem('access_token'))
+			const user = await fetch("http://localhost:8000/api/user", {
+				headers: {
+					Authorization: `${access_token.token_type} ${access_token.access_token}`,
+					Accept: "application/json"
+				}
+				
+				})
+				const user_data = await user.json()
+				sessionStorage.setItem("userName", JSON.stringify(user_data.name));
+			}
+			catch (error)
+			{
+				console.error("Error: ", error)
+			}
+			
           router.push("/");
         }
       } catch (error) {

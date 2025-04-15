@@ -34,46 +34,82 @@
       <div
         class="flex items-center justify-end space-x-4 pb-4 text-base lg:text-xl"
       >
-        <div v-if="isUserLoggedIn">
-          <span class="text-yellow-300">Bienvenue, {{ userName }}</span>
+        <div v-if="isConnected">
+          <span class="text-yellow-300 md-5">Bienvenue, {{ userName }}</span>
+		  	<button @click="logout()" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-full">
+				Déconnexion
+        	</button>
         </div>
 
-        <button
-          @click="logout"
-          class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-full"
-        >
-          {{ isUserLoggedIn ? "Déconnexion" : "Connexion" }}
-        </button>
+		<div v-else>
+			<button @click="navigateTo('/connexion')" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-full">
+				Connexion
+			</button>
+		</div>
+        
       </div>
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted, watch} from 'vue';
+import { useRoute, useRouter } from "vue-router";
 import Logo from "./Logo.vue";
 
 const router = useRouter();
+const route = useRoute();
+const isConnected = ref(false);
+const userName = ref("");
 
-// Vérifie l'état de connexion de l'utilisateur depuis localStorage
-const isUserLoggedIn = ref(localStorage.getItem("isUserLoggedIn") === "true");
-const userName = ref(localStorage.getItem("userName") || ""); // Récupère le prénom de l'utilisateur
+async function logout(){
+	try {
+		const access_token = JSON.parse(sessionStorage.getItem('access_token'))
+		const user = await fetch("http://localhost:8000/api/user", {
+			headers: {
+				Authorization: `${access_token.token_type} ${access_token.access_token}`,
+				Accept: "application/json"
+			}
+		})
+		const user_data = await user.json()
+		const response = await fetch(`http://localhost:8000/api/logout`, {
+			method: "POST",
+			headers: {
+				Authorization: `${access_token.token_type} ${access_token.access_token}`,
+				Accept: "application/json",
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(user_data)
+		})
+		const data = await response.json()
+		if (data.message === 'User disconnected') {
+			isConnected.value = false
+			userName.value = ""
+			sessionStorage.removeItem('access_token')
+			sessionStorage.removeItem('userName')
+			router.push('/connexion')
+		}
+	} catch (error) {
+		console.error('Error:', error)
+	}
+}
 
-// Fonction de déconnexion
-function logout() {
-  localStorage.removeItem("isUserLoggedIn");
-  localStorage.removeItem("userName");
-  isUserLoggedIn.value = false;
-  userName.value = "";
-  router.push("/connexion"); // Rediriger vers la page de connexion
+function checkConnection() {
+	isConnected.value = !!sessionStorage.getItem('access_token');
+  	userName.value = sessionStorage.getItem("userName") || "";
 }
 
 // Mettre à jour l'état de connexion lors du montage du composant
 onMounted(() => {
-  isUserLoggedIn.value = localStorage.getItem("isUserLoggedIn") === "true";
-  userName.value = localStorage.getItem("userName") || "";
+  checkConnection();
 });
+
+watch(
+  () => route.path, // Watch the route path
+  () => {
+    checkConnection(); // Call checkConnection when the route changes
+  }
+);
 
 // Fonction de navigation
 function navigateTo(route) {
