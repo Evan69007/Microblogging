@@ -2,12 +2,12 @@
   <div class="bg-gray-900 p-6 rounded-xl shadow-lg">
     <!-- Post Header -->
     <div class="flex justify-between items-start">
-      <h3 class="text-xl font-semibold text-orange-400">{{ post.title }}</h3>
+      <h3 class="text-xl font-semibold text-orange-400">{{ post.titre }}</h3>
       <div class="text-sm text-gray-500">{{ post.date }}</div>
     </div>
 
     <!-- Post Content -->
-    <p class="text-lg text-gray-300 mt-4">{{ post.content }}</p>
+    <p class="text-lg text-gray-300 mt-4">{{ post.description }}</p>
 
     <!-- Post Author -->
     <div class="flex items-center space-x-2 mt-4">
@@ -18,8 +18,8 @@
     <!-- Post Footer: Tags, Likes, Comments -->
     <div class="flex items-center justify-between mt-4">
       <div class="flex space-x-3">
-        <span v-for="tag in post.tags" :key="tag" class="text-sm text-teal-400"
-          >#{{ tag }}</span
+        <span v-for="tag in post.hashtags" :key="tag" class="text-sm text-teal-400"
+          >{{ tag }}</span
         >
       </div>
       <div class="flex space-x-3">

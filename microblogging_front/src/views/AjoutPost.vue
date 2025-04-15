@@ -1,76 +1,78 @@
 <template>
-  <div class="bg-gray-800 text-white min-h-screen mt-24 pt-32 pb-8">
-    <div class="flex justify-center items-center">
-      <div class="w-full max-w-4xl bg-gray-900 p-6 rounded-xl shadow-lg">
-        <h2 class="text-3xl text-gray-400 mb-4">Ajouter un Post</h2>
-
-        <!-- Formulaire de création de post -->
-        <form @submit.prevent="submitPost">
-          <div class="mb-6">
-            <label for="title" class="block text-sm font-medium text-gray-300"
-              >Titre</label
-            >
-            <input
-              id="title"
-              v-model="newPost.title"
-              type="text"
-              placeholder="Titre de votre post"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
-              required
-            />
+  <div class="min-h-screen bg-gray-800 py-6 flex flex-col justify-center sm:py-12">
+    <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+      <div class="relative px-4 py-10 bg-gray-900 mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+        <div class="max-w-md mx-auto">
+          <div class="divide-y divide-gray-700">
+            <div class="py-8 text-base leading-6 space-y-4 text-gray-300 sm:text-lg sm:leading-7">
+              <div class="flex flex-col">
+                <label class="leading-loose text-orange-400">Titre</label>
+                <input
+                  type="text"
+                  v-model="newPost.titre"
+                  class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-700 rounded-md bg-gray-800 text-white"
+                  placeholder="Titre de votre post"
+                />
+              </div>
+              <div class="flex flex-col">
+                <label class="leading-loose text-orange-400">Description</label>
+                <textarea
+                  v-model="newPost.description"
+                  class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-700 rounded-md bg-gray-800 text-white"
+                  rows="4"
+                  placeholder="Contenu de votre post"
+                ></textarea>
+              </div>
+            </div>
+            <div class="pt-4 flex items-center space-x-4">
+              <button
+                @click="submitPost"
+                class="bg-orange-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none hover:bg-orange-600"
+              >
+                Publier
+              </button>
+            </div>
           </div>
-
-          <div class="mb-6">
-            <label for="content" class="block text-sm font-medium text-gray-300"
-              >Contenu</label
-            >
-            <textarea
-              id="content"
-              v-model="newPost.content"
-              placeholder="Écrivez votre post ici"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
-              rows="5"
-              required
-            ></textarea>
-          </div>
-
-          <!-- Utilisation du composant TagChecklist pour sélectionner des tags -->
-          <TagChecklist ref="tagChecklist" />
-
-          <div>
-            <button
-              type="submit"
-              class="w-full bg-orange-600 text-white py-3 rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            >
-              Ajouter le Post
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
+
 <script setup>
 import { ref } from "vue";
-import TagChecklist from "@/components/Posts/TagChecklist.vue"; // Assure-toi que le fichier existe ici
+import { useRouter } from "vue-router";
+import api from "@/services/api.js";
 
-// Données du post
+
+const router = useRouter();
 const newPost = ref({
-  title: "",
-  content: "",
-  tags: [],
+  titre: "",
+  description: "",
 });
 
-// Fonction pour soumettre le post
-function submitPost() {
-  // Récupérer les tags depuis TagChecklist
-  newPost.value.tags = $refs.tagChecklist.selectedTags;
 
-  // Afficher dans la console ou envoyer l'objet post à une API
-  console.log("Nouveau post ajouté :", newPost.value);
+async function submitPost() {
+  try {
+    const userInfo = JSON.parse(sessionStorage.getItem("access_token"));
+    if (!userInfo) {
+      console.error("Utilisateur non connecté");
+      return;
+    }
 
-  // Réinitialiser le formulaire après soumission
-  newPost.value = { title: "", content: "", tags: [] };
+
+    const postData = {
+      titre: newPost.value.titre,
+      description: newPost.value.description,
+      user_id: userInfo.user.id
+    };
+
+
+    await api.createPost(postData);
+    router.push("/");
+  } catch (error) {
+    console.error("Erreur lors de la création du post:", error);
+  }
 }
 </script>

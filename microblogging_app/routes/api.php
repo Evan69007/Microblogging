@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Auth;
 Route::resource('posts', PostController::class);
 Route::resource('users', UserController::class);
 
-Route::get("/Posts", [PostController::class, 'index']);
-Route::post("/Posts", [PostController::class, 'store']);
-Route::get("/Posts/{id}", [PostController::class, 'show']);
-Route::put("/Posts/{id}", [PostController::class, 'update']);
-Route::delete("/Posts/{id}", [PostController::class, 'destroy']);
+// Route::get("/Posts", [PostController::class, 'index']);
+// Route::post("/Posts", [PostController::class, 'store']);
+// Route::get("/Posts/{id}", [PostController::class, 'show']);
+// Route::put("/Posts/{id}", [PostController::class, 'update']);
+// Route::delete("/Posts/{id}", [PostController::class, 'destroy']);
 
 
 Route::get("/Commentaires", [CommentairesController::class, 'index']);
