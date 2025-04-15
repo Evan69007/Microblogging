@@ -1,5 +1,5 @@
 <template>
-  <div class="w-128 max-w-lg mr-128 bg-white p-12 rounded-xl shadow-lg">
+  <div class="w-128 max-w-lg bg-white p-12 rounded-xl shadow-lg">
     <!-- Contenu du formulaire de connexion -->
     <form @submit.prevent="submitForm">
       <div class="mb-6">

@@ -1,13 +1,15 @@
 <template>
-  <nav class="fixed top-0 left-0 right-0 bg-gray-800 text-white z-50 h-28">
-    <div class="grid grid-cols-3 items-center h-full px-6 pb-2">
+  <nav
+    class="fixed top-0 left-0 right-0 bg-gray-800 text-white z-50 h-32 pb-16"
+  >
+    <div class="grid grid-cols-3 items-center h-8 px-6 pb-16">
       <!-- Colonne 1 : Logo -->
       <div class="flex items-center justify-start ml-4 lg:ml-20 mt-0">
-        <Logo class="w-auto max-w-48 h-auto" />
+        <Logo class="w-32 max-w-48 h-auto" />
       </div>
 
       <!-- Colonne 2 : Boutons de navigation -->
-      <div class="flex justify-center space-x-8 lg:space-x-16 pb-4 mt-0">
+      <div class="flex justify-center space-x-8 lg:space-x-16 pb-2 mt-0">
         <button
           @click="navigateTo('/')"
           class="bg-gray-800 text-white font-bold px-4 py-1 rounded-full border-4 border-green-800 hover:bg-green-900 transition uppercase tracking-wide text-base lg:text-xl"
@@ -38,7 +40,7 @@
           <span class="text-yellow-300 md-5">Bienvenue, {{ userName }}</span>
           <button
             @click="logout()"
-            class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-full"
+            class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-full ml-32"
           >
             Déconnexion
           </button>
