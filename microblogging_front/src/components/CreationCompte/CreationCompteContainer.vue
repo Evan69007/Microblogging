@@ -14,10 +14,10 @@
             >
             <input
               id="username"
-              v-model="form.username"
+              v-model="form.name"
               type="text"
               placeholder="Nom d'utilisateur"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               required
             />
           </div>
@@ -31,7 +31,7 @@
               v-model="form.email"
               type="email"
               placeholder="email@exemple.com"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               required
             />
           </div>
@@ -47,7 +47,7 @@
               v-model="form.password"
               type="password"
               placeholder="Mot de passe"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               required
             />
           </div>
@@ -63,7 +63,7 @@
               v-model="form.confirmPassword"
               type="password"
               placeholder="Confirmez votre mot de passe"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               required
             />
           </div>
@@ -99,33 +99,41 @@ import { useRouter } from "vue-router";
 
 // Formulaire de création de compte / modification de profil
 const form = ref({
-  username: "",
+  name: "",
   email: "",
   password: "",
   confirmPassword: "",
-  biography: "",
 });
 
+const router = useRouter()
 // Fonction pour soumettre le formulaire
-function submitForm() {
-  // Validation du mot de passe
-  if (form.value.password !== form.value.confirmPassword) {
-    alert("Les mots de passe ne correspondent pas.");
-    return;
-  }
-
-  // Logique pour envoyer le formulaire à l'API ou à une autre logique
-  console.log("Formulaire soumis :", form.value);
-
-  // Si c'est la création de compte, on peut rediriger l'utilisateur
-  // ou afficher un message de succès.
-  // Pour l'instant, on réinitialise le formulaire après soumission.
-  form.value = {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
+async function submitForm() {
+  	// Validation du mot de passe
+	if (form.value.password !== form.value.confirmPassword) {
+		alert("Les mots de passe ne correspondent pas.");
+		return;
+	}
+	else {
+		try {
+			const response = await fetch("http://localhost:8000/api/register", {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify(form.value),
+			})
+			const data = await response.json()
+			const user = data.user
+			delete data.user
+			sessionStorage.setItem("access_token", JSON.stringify(data))
+			sessionStorage.setItem("userName", JSON.stringify(form.value.name))
+			router.push("/")
+		}
+		catch(error) {
+			console.error("Error: ", error)
+		}
+	}
 }
 </script>
 

@@ -48,22 +48,22 @@ class User extends Authenticatable
         ];
     }
     public function likes(): HasMany
-{
-    return $this->hasMany(Likes::class, 'user_id');
-}
+	{
+		return $this->hasMany(Likes::class, 'user_id');
+	}
 
-public function commentaires(): HasMany
-{
-    return $this->hasMany(Commentaires::class, 'user_id');
-}
+	public function commentaires(): HasMany
+	{
+		return $this->hasMany(Commentaires::class, 'user_id');
+	}
 
-public function profil_users(): HasMany
-{
-    return $this->hasMany(Profil_Users::class, 'user_id');
-}
+	public function profil_users(): HasMany
+	{
+		return $this->hasMany(Profil_Users::class, 'user_id');
+	}
 
-public function post(): HasMany
-{
-    return $this->hasMany(Post::class, 'user_id');
-}
+	public function post(): HasMany
+	{
+		return $this->hasMany(Post::class, 'user_id');
+	}
 }
