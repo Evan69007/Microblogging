@@ -37,16 +37,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import PostCard from "@/components/Posts/PostCard.vue"; // Importer le composant PostCard
 
-// Simuler des données pour l'utilisateur
 const userName = ref("Laura"); // Prénom de l'utilisateur
-const biography = ref(
-  "Développeuse full stack passionnée par le clean code et le partage de connaissances, je transforme les lignes de code en solutions concrètes. Curieuse et toujours en veille, j’aime expérimenter, documenter et transmettre mes découvertes."
-); // Biographie
+const biography = ref("Développeuse full stack passionnée..."); // Biographie par défaut
+
+// Récupérer la biographie mise à jour via le router query
+const route = useRoute();
+if (route.query.updatedBiography) {
+  biography.value = route.query.updatedBiography;
+}
+
+// Simuler des posts pour l'utilisateur
 const allPosts = ref([
-  // Liste de posts simulée
   {
     title: "Zoom sur une fonction PHP ou JS",
     content: "Description...",
@@ -56,48 +61,19 @@ const allPosts = ref([
     likes: 4,
     comments: 2,
   },
-  {
-    title: "Zoom sur une fonction PHP ou JS",
-    content: "Description...",
-    date: "08/04/2025",
-    author: "Laura",
-    tags: ["astuces", "languages"],
-    likes: 4,
-    comments: 2,
-  },
-  {
-    title: "Zoom sur une fonction PHP ou JS",
-    content: "Description...",
-    date: "08/04/2025",
-    author: "Laura",
-    tags: ["astuces", "languages"],
-    likes: 4,
-    comments: 2,
-  },
-  {
-    title: "Zoom sur une fonction PHP ou JS",
-    content: "Description...",
-    date: "08/04/2025",
-    author: "Laura",
-    tags: ["astuces", "languages"],
-    likes: 4,
-    comments: 2,
-  },
-  {
-    title: "Zoom sur une fonction PHP ou JS",
-    content: "Description...",
-    date: "08/04/2025",
-    author: "Laura",
-    tags: ["astuces", "languages"],
-    likes: 4,
-    comments: 2,
-  },
+  // Autres posts...
 ]);
 
 // Filtrer les posts de l'utilisateur
 const userPosts = ref(
   allPosts.value.filter((post) => post.author === userName.value)
 );
+
+// Méthode pour rediriger vers la vue ModifProfil
+const router = useRouter();
+const editProfile = () => {
+  router.push({ name: "modif-profil" }); // Rediriger vers la vue ModifProfil
+};
 
 // Fonction pour éditer un post
 function editPost(post) {
