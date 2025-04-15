@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center min-h-screen bg-gray-800">
     <div class="flex w-full max-w-7xl">
       <div class="flex-1 p-8 flex justify-center items-center">
-        <Logo class="w-120" />
+        <Logo class="w-32 h-auto" />
       </div>
 
       <div class="flex-1 bg-white p-8 rounded-xl shadow-lg mt-32">
@@ -71,10 +71,10 @@
 </template>
 
 <script>
+import Logo from "@/components/NavBar/Logo.vue"; // Importation du composant Logo
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 /* import axios from "axios"; */
-import Logo from "@/components/NavBar/Logo.vue"; // Importation du composant Logo
 
 export default {
   setup() {

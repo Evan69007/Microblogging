@@ -3,7 +3,7 @@
     <div class="grid grid-cols-3 items-end h-full px-6 pb-2">
       <!-- Colonne 1 : Logo -->
       <div class="flex items-end justify-start ml-4 lg:ml-20">
-        <Logo class="h-[80px] max-h-full w-auto" />
+        <Logo class="h-[120px] max-h-full w-auto" />
       </div>
 
       <!-- Colonne 2 : Boutons de navigation -->

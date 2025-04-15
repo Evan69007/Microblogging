@@ -68,7 +68,7 @@ Route::middleware('auth:sanctum')->put('/user/update', function (Request $reques
   $user = $request->user();
 
   // Vérifier si des données sont envoyées
-  if (!$request->hasAny(['name', 'email', 'password'])) {
+  if (!$request->hasAny(['name', 'email', 'biographie', 'password'])) {
       return response()->json(['message' => 'No data to update'], 400);
   }
 
@@ -77,6 +77,7 @@ Route::middleware('auth:sanctum')->put('/user/update', function (Request $reques
       $validatedData = $request->validate([
           'name' => 'sometimes|string|max:255',
           'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user->id,
+          'biographie' => 'sometimes|string|max:1000',  // Validation pour la biographie
           'password' => 'sometimes|string|min:6'
       ]);
   } catch (\Illuminate\Validation\ValidationException $e) {
@@ -90,6 +91,9 @@ Route::middleware('auth:sanctum')->put('/user/update', function (Request $reques
   if (isset($validatedData['email'])) {
       $user->email = $validatedData['email'];
   }
+  if (isset($validatedData['biographie'])) {  // Mise à jour de la biographie
+    $user->biographie = $validatedData['biographie'];
+}
   if (isset($validatedData['password'])) {
       $user->password = Hash::make($validatedData['password']);
   }

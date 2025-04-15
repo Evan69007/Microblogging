@@ -10,6 +10,7 @@ import Profil from "@/views/Profil.vue";
 import AjoutPost from "@/views/AjoutPost.vue";
 import CreationCompte from "@/views/CreationCompte.vue";
 import ModifPost from "@/views/ModifPost.vue";
+import ModifProfil from "@/views/ModifProfil.vue";
 
 // Déclaration des routes
 const routes = [
@@ -25,6 +26,12 @@ const routes = [
     path: "/modif-post/:id", // Route dynamique avec un paramètre 'id' pour identifier le post à modifier
     name: "ModifPost",
     component: ModifPost,
+    props: true, // Cela permet de passer l'id du post comme prop dans ModifPost.vue
+  },
+  {
+    path: "/modif-profil/:id", // Route dynamique avec un paramètre 'id' pour identifier le post à modifier
+    name: "ModifProfil",
+    component: ModifProfil,
     props: true, // Cela permet de passer l'id du post comme prop dans ModifPost.vue
   },
 
