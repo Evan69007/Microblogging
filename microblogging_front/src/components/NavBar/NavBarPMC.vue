@@ -17,7 +17,9 @@
           HOME
         </button>
 
+        <!-- Boutons affichés uniquement si l'utilisateur est connecté -->
         <button
+          v-if="isConnected"
           @click="navigateTo('/profil')"
           class="bg-gray-800 text-white font-bold px-4 py-1 rounded-full border-4 border-yellow-400 hover:bg-yellow-500 transition uppercase tracking-wide text-base lg:text-xl"
         >
@@ -25,6 +27,7 @@
         </button>
 
         <button
+          v-if="isConnected"
           @click="navigateTo('/post')"
           class="bg-gray-800 text-white font-bold px-4 py-1 rounded-full border-4 border-orange-600 hover:bg-orange-700 transition uppercase tracking-wide text-base lg:text-xl"
         >
@@ -58,6 +61,7 @@
     </div>
   </nav>
 </template>
+
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
