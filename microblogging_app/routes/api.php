@@ -9,22 +9,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 // Route pour l'inscription d'un nouvel utilisateur
 Route::post('/register', function (Request $request) {
   // Validation des données entrantes
-  $validatedData = $request->validate([
-      'name' => 'required|string|max:255',
-      'email' => 'required|string|email|max:255|unique:users',
-      'password' => 'required|string|min:6',
-  ]);
-
-  // Création et sauvegarde de l'utilisateur
-  $newUser = User::create([
-      'name' => $validatedData['name'],
-      'email' => $validatedData['email'],
-      'password' => Hash::make($validatedData['password']),
-  ]);
+ 
+  try {
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6',
+    ]);
+    
+    $newUser = User::create([
+        'name' => $validatedData['name'],
+        'email' => $validatedData['email'],
+        'password' => Hash::make($validatedData['password']),
+    ]);
+    
+    // Return success response
+} catch (\Exception $e) {
+    // Log the error or return it in the response
+    return response()->json(['error' => $e->getMessage()], 500);
+}
 
   // Création d'un token d'accès pour l'utilisateur
   $token = $newUser->createToken('auth_token')->plainTextToken;
