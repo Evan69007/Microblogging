@@ -18,7 +18,10 @@
     <!-- Post Footer: Tags, Likes, Comments -->
     <div class="flex items-center justify-between mt-4">
       <div class="flex space-x-3">
-        <span v-for="tag in post.hashtags" :key="tag" class="text-sm text-teal-400"
+        <span
+          v-for="tag in post.hashtags"
+          :key="tag"
+          class="text-sm text-teal-400"
           >{{ tag }}</span
         >
       </div>
@@ -33,7 +36,10 @@
     </div>
 
     <!-- Buttons to Edit and Delete the Post, only visible to the author -->
-    <div v-if="post.author === currentUser" class="mt-4 flex justify-between">
+    <div
+      v-if="post.user.name === currentUser"
+      class="mt-4 flex justify-between"
+    >
       <button
         @click="editPost"
         class="bg-green-800 text-white py-1 px-4 rounded-md hover:bg-blue-600"
@@ -57,13 +63,10 @@ import { ref, onMounted } from "vue";
 defineProps({
   post: Object,
 });
-
-// Référence à l'utilisateur connecté (par exemple, depuis localStorage)
 const currentUser = ref("");
-
 // Fonction pour récupérer l'utilisateur connecté (à partir de localStorage par exemple)
 onMounted(() => {
-  currentUser.value = localStorage.getItem("userName"); // Remplace par la méthode que tu utilises pour gérer l'utilisateur connecté
+  currentUser.value = sessionStorage.getItem("userName"); // Remplace par la méthode que tu utilises pour gérer l'utilisateur connecté
 });
 
 // Événements pour modifier et supprimer un post

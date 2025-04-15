@@ -102,7 +102,7 @@ export default {
               },
             });
             const user_data = await user.json();
-            sessionStorage.setItem("userName", JSON.stringify(user_data.name));
+            sessionStorage.setItem("userName", user_data.name);
           } catch (error) {
             console.error("Error: ", error);
           }
