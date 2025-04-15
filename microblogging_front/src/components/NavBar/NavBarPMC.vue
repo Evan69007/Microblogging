@@ -23,7 +23,7 @@
           @click="navigateTo('/profil')"
           class="bg-gray-800 text-white font-bold px-4 py-1 rounded-full border-4 border-yellow-400 hover:bg-yellow-500 transition uppercase tracking-wide text-base lg:text-xl"
         >
-          MON PROFIL
+          PROFIL
         </button>
 
         <button
@@ -31,7 +31,7 @@
           @click="navigateTo('/post')"
           class="bg-gray-800 text-white font-bold px-4 py-1 rounded-full border-4 border-orange-600 hover:bg-orange-700 transition uppercase tracking-wide text-base lg:text-xl"
         >
-          + POST
+          +POST
         </button>
       </div>
 
