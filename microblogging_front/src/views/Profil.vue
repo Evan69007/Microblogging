@@ -2,41 +2,41 @@
 	<div v-if="isLoading">
 		Chagement en cours...
 	</div>
-  <div v-else class="bg-gray-800 text-white min-h-screen pt-32 pb-8">
-    <!-- Bouton "Modifier Profil" -->
-    <div class="absolute top-32 right-16 z-10">
-      <button
-        @click="editProfile(user.id)"
-        class="bg-green-800 text-white py-2 px-6 rounded-md hover:bg-orange-700 transition"
-      >
-        Modifier Profil
-      </button>
-    </div>
+	<div v-else class="bg-gray-800 text-white min-h-screen pt-32 pb-8">
+		<!-- Bouton "Modifier Profil" -->
+		<div class="absolute top-32 right-16 z-10">
+		<button
+			@click="editProfile(user.id)"
+			class="bg-green-800 text-white py-2 px-6 rounded-md hover:bg-orange-700 transition"
+		>
+			Modifier Profil
+		</button>
+		</div>
 
-    <!-- Conteneur en flex pour la biographie et les posts -->
-    <div class="flex gap-16 pt-32 px-16 items-stretch">
-      <!-- Section Biographie (à gauche) -->
-      <div
-        class="flex-1 text-center bg-gray-900 p-6 rounded-xl shadow-lg max-h-[700px] sticky top-32"
-      >
-        <h2 class="text-5xl text-gray-400 mb-4">Biographie</h2>
-        <p class="text-7xl text-yellow-300 font-bold">{{ user.name }}</p>
-        <p class="text-2xl text-gray-300 mt-4">{{ user.profil__users[0].biographie }}</p>
-      </div>
+		<!-- Conteneur en flex pour la biographie et les posts -->
+		<div class="flex gap-16 pt-32 px-16 items-stretch">
+		<!-- Section Biographie (à gauche) -->
+			<div
+				class="flex-1 text-center bg-gray-900 p-6 rounded-xl shadow-lg max-h-[700px] sticky top-32"
+			>
+				<h2 class="text-5xl text-gray-400 mb-4">Biographie</h2>
+				<p class="text-7xl text-yellow-300 font-bold">{{ user.name }}</p>
+				<p class="text-2xl text-gray-300 mt-4">{{ user.profil__users[0].biographie }}</p>
+			</div>
 
-      <!-- Section Posts de l'utilisateur (à droite) -->
-      <div class="flex-1 max-w-5xl mx-auto pt-1 space-y-8 px-2 overflow-y-auto">
-        <!-- Affichage de tous les posts de l'utilisateur -->
-        <div v-for="(post, index) in userPosts" :key="index">
-          <PostCard
-            :post="post"
-            @editPost="editPost"
-            @deletePost="deletePost"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+			<!-- Section Posts de l'utilisateur (à droite) -->
+			<div class="flex-1 max-w-5xl mx-auto pt-1 space-y-8 px-2 overflow-y-auto">
+				<!-- Affichage de tous les posts de l'utilisateur -->
+				<div v-for="(post, index) in userPosts" :key="index">
+				<PostCard
+					:post="post"
+					@editPost="editPost"
+					@deletePost="deletePost"
+				/>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -69,6 +69,13 @@ export default {
 		const user_data = await response.json()
 		const user_response = await fetch(`http://localhost:8000/api/User/${user_data.id}`)
 		this.user = await user_response.json()
+		for (let i = 0; i < this.user.post.length; i++)
+		{
+			this.user.post[i].user = {
+				name: this.user.name
+			}
+			// this.user.post[i].user.name = this.user.name
+		}
 		this.userPosts = this.user.post
 		this.isLoading = false
 	}

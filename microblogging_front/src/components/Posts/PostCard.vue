@@ -12,7 +12,7 @@
     <!-- Post Author -->
     <div class="flex items-center space-x-2 mt-4">
       <span class="text-gray-400">Publié par</span>
-      <span class="text-yellow-300">{{ post.author }}</span>
+      <span class="text-yellow-300">{{ post.user.name }}</span>
     </div>
 
     <!-- Post Footer: Tags, Likes, Comments -->
