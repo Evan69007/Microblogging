@@ -1,5 +1,7 @@
 <template>
-  <img src="@/assets/images/pmc_logo.png" alt="Logo" class="w-full h-auto" />
+  <router-link to="/" class="inline-block">
+    <img src="@/assets/images/pmc_logo.png" alt="Logo" class="w-128 h-auto" />
+  </router-link>
 </template>
 
 <script>
@@ -10,7 +12,4 @@ export default {
 
 <style scoped>
 /* Style spécifique au logo */
-img {
-  max-width: 120px;
-}
 </style>
