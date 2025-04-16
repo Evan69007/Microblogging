@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Profil_Users;
+use Carbon\Carbon;
 
 // Route pour l'inscription d'un nouvel utilisateur
 Route::post('/register', function (Request $request) {
@@ -99,13 +101,24 @@ Route::middleware('auth:sanctum')->put('/user/update', function (Request $reques
   if (isset($validatedData['email'])) {
       $user->email = $validatedData['email'];
   }
-  if (isset($validatedData['biographie'])) {  // Mise à jour de la biographie
-    $user->biographie = $validatedData['biographie'];
+  if (isset($validatedData['biographie'])) { // Mise à jour de la biographie
+	if(Profil_Users::where('user_id', $user->id)->exists()){
+		$Profil_Users = Profil_Users::where('user_id', $user->id)->first();
+		$Profil_Users->biographie = $validatedData['biographie'];
+		$Profil_Users->updated_at = Carbon::now()->toDateTimeString();
+	}
+	else{
+		$Profil_Users = new Profil_Users();
+		$Profil_Users->user_id = $user->user_id;
+		$Profil_Users->biographie = $validatedData['biographie'];
+		$Profil_Users->created_at = Carbon::now()->toDateTimeString();
+	}
 }
   if (isset($validatedData['password'])) {
       $user->password = Hash::make($validatedData['password']);
   }
   $user->save();
+  $Profil_Users->save();
 
   return response()->json(['message' => 'User updated successfully', 'user' => $user]);
 });

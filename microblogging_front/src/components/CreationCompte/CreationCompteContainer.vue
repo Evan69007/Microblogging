@@ -124,11 +124,17 @@ async function submitForm() {
 				body: JSON.stringify(form.value),
 			})
 			const data = await response.json()
-			const user = data.user
-			delete data.user
 			sessionStorage.setItem("access_token", JSON.stringify(data))
 			sessionStorage.setItem("userName", JSON.stringify(form.value.name))
-			router.push("/")
+			const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+            const user = await fetch("http://localhost:8000/api/user", {
+              headers: {
+                Authorization: `${access_token.token_type} ${access_token.access_token}`,
+                Accept: "application/json",
+              },
+            });
+            const user_data = await user.json();
+			router.push(`/modif-profil/${user_data.id}`)
 		}
 		catch(error) {
 			console.error("Error: ", error)

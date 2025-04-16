@@ -18,7 +18,7 @@
           <EmailInput v-model="formData.email" />
 
           <!-- Biographie -->
-          <BiographyInput v-model="formData.biography" />
+          <BiographyInput v-model="formData.biographie" />
 
           <!-- Mot de passe -->
           <PasswordInput v-model="formData.password" />
@@ -48,7 +48,7 @@ import PasswordInput from "@/components/ModifProfil/PasswordInput.vue";
 const formData = ref({
   name: "",
   email: "",
-  biography: "",
+  biographie: "",
   password: "",
 });
 
@@ -58,21 +58,23 @@ const router = useRouter();
 onMounted(async () => {
   try {
     // Récupérer les informations actuelles de l'utilisateur
+	const access_token = JSON.parse(sessionStorage.getItem("access_token"));
     const response = await fetch("http://localhost:8000/api/user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${yourAccessToken}`, // Remplacer par le token d'authentification de l'utilisateur
+        Authorization: `${access_token.token_type} ${access_token.access_token}`, // Remplacer par le token d'authentification de l'utilisateur
       },
     });
-
-    if (response.ok) {
-      const data = await response.json();
+	const data = await response.json();
+	const profil = await fetch(`http://localhost:8000/api/Profil_Users/${data.id}`)
+	const profil_data = await profil.json()
+    if (response.ok && profil.ok) {
       // Remplir le formulaire avec les données actuelles de l'utilisateur
       formData.value.name = data.name;
       formData.value.email = data.email;
-      formData.value.biography = data.biography;
+      formData.value.biographie = profil_data.biographie;
     } else {
       alert("Erreur lors de la récupération des données.");
     }
@@ -81,43 +83,40 @@ onMounted(async () => {
       "Erreur lors de l'appel API pour récupérer les données :",
       error
     );
-    alert("Erreur de connexion à l'API.");
   }
 });
 
 // Fonction de soumission pour sauvegarder les modifications dans l'API
 const submitForm = async () => {
+	if(formData.value.password.length === 0)
+	{
+		delete formData.value.password
+	}
   try {
+	
     // Envoi des données à l'API pour sauvegarder la biographie
+	const access_token = JSON.parse(sessionStorage.getItem("access_token"));
     const response = await fetch("http://localhost:8000/api/user/update", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `Bearer ${yourAccessToken}`, // Remplacer par le token d'authentification
+        Authorization: `${access_token.token_type} ${access_token.access_token}`, // Remplacer par le token d'authentification
       },
-      body: JSON.stringify({
-        name: formData.value.name,
-        email: formData.value.email,
-        biography: formData.value.biography,
-        password: formData.value.password,
-      }),
+      body: JSON.stringify(formData.value),
     });
 
-    const data = await response.json();
+   
     if (response.ok) {
-      alert("Profil mis à jour !");
-      // Redirection vers Profil.vue avec la biographie mise à jour
-      router.push({
-        name: "profil", // Nom de la vue Profil
-        query: { updatedBiography: formData.value.biography }, // Passer la biographie modifiée via query params
-      });
+		const data = await response.json();
+		alert("Profil mis à jour !");
+		// Redirection vers Profil.vue avec la biographie mise à jour
+		router.push("/profil");
     } else {
       alert("Erreur lors de la mise à jour du profil.");
     }
   } catch (error) {
     console.error("Erreur lors de l'appel API :", error);
-    alert("Erreur de connexion à l'API.");
   }
 };
 </script>
