@@ -24,18 +24,24 @@ class PostController extends Controller
         return response()->json($post->load('user'));
     }
 
-    public function show(Post $post)
+    public function show($id)
     {
-        return response()->json($post->load('user'));
+        $post = Post::with('user')->findOrFail($id);
+        if(!empty($post)){
+            return response()->json($post);}
+        else{
+            return response()->json(['message' => 'post introuvable'],404);
+        }
     }
 
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
+        $post = Post::findOrFail($id);
         $post->update([
             'titre' => $request->titre,
-            'description' => $request->description
+            'description' => $request->description,
+            'hashtags' => $request->hashtags,
         ]);
-
         return response()->json($post->load('user'));
     }
 

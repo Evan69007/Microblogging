@@ -27,6 +27,11 @@ export default {
     return response.data;
   },
 
+  async getPost(id) {
+    const response = await api.get(`/posts/${id}`);
+    return response.data;
+  },
+
   async createPost(postData) {
     const response = await api.post("/posts", postData);
     return response.data;
