@@ -25,8 +25,8 @@ async function submitPost() {
       return;
     }
     if (newPost.value.hashtags) {
-      newPost.value.hashtags = newPost.value.hashtags.split(", ");
-    } else {
+      const hashtags = newPost.value.hashtags.split(", ");
+      newPost.value.hashtags = hashtags;
     }
     const postData = {
       titre: newPost.value.titre,

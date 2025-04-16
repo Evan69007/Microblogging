@@ -13,6 +13,16 @@ class ProfilUsersSeeder extends Seeder
      */
     public function run(): void
     {
-        Profil_Users::factory(4)->create();
+        $jsonData = file_get_contents(database_path('data/users.json'));
+
+        $data = json_decode($jsonData, true);
+
+        for ($i = 0; $i < count($data); $i += 1)
+        {
+            $profil_user = Profil_Users::create([
+                'user_id' => ($i + 1),
+                'biographie' => $data[$i]['biographie'],
+            ]);
+        }
     }
 }

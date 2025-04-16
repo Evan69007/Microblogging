@@ -1,22 +1,117 @@
 [
     {
-        "name": "Theo",
-        "email": "theo@example.com",
-        "password": "test123"
+        "name": "Alice Durand",
+        "email": "alice.durand@pushmycode.dev",
+        "password": "test123",
+        "biographie": "Développeuse front-end passionnée par les interfaces intuitives.\nExperte en Vue.js et Tailwind CSS.\nJe m'intéresse beaucoup à l'accessibilité web.\nJe partage des astuces front sur mon profil.",
+        "posts": [
+            {
+                "titre": "Améliorer l'accessibilité avec ARIA",
+                "description": "Petit rappel sur les rôles ARIA pour rendre vos composants accessibles.",
+                "hashtags": ["#accessibilite", "#webdev"]
+            },
+            {
+                "titre": "Grid vs Flexbox",
+                "description": "Quand utiliser l’un ou l’autre ? Quelques cas d’usage concrets.",
+                "hashtags": ["#css", "#responsive"]
+            },
+            {
+                "titre": "Structurer une app Vue 3",
+                "description": "Exemples de structure propre avec composantisation et props bien gérés.",
+                "hashtags": ["#vuejs", "#cleanCode"]
+            }
+        ]
     },
     {
-        "name": "Evan",
-        "email": "evan@example.com",
-        "password": "test123"
+        "name": "Mehdi Lemoine",
+        "email": "mehdi.lemoine@pushmycode.dev",
+        "password": "test123",
+        "biographie": "Développeur full stack JavaScript spécialisé Node.js.\nPassionné par les API REST et la performance serveur.\nToujours partant pour des hacks techniques.\nTeam dark mode à fond.",
+        "posts": [
+            {
+                "titre": "API REST : les bonnes pratiques",
+                "description": "Status codes, routes cohérentes, pagination, on fait le tour.",
+                "hashtags": ["#api", "#rest"]
+            },
+            {
+                "titre": "Utiliser MongoDB avec Mongoose",
+                "description": "Schema, modèle, requêtes : un guide rapide et clair.",
+                "hashtags": ["#mongodb", "#nodejs"]
+            },
+            {
+                "titre": "Async/Await expliqué simplement",
+                "description": "Fini les callbacks ! Voici un résumé de la logique async moderne.",
+                "hashtags": ["#javascript", "#async"]
+            }
+        ]
     },
     {
-        "name": "Tanguy",
-        "email": "tanguy@example.com",
-        "password": "test123"
+        "name": "Clara Benchetrit",
+        "email": "clara.benchetrit@pushmycode.dev",
+        "password": "test123",
+        "biographie": "Développeuse junior en reconversion.\nFan de Laravel et de PHP structuré.\nJ’aime apprendre chaque jour sur le back et le front.\nJe documente mon apprentissage sur PushMyCode.",
+        "posts": [
+            {
+                "titre": "Comprendre les migrations Laravel",
+                "description": "Créer et gérer sa base proprement avec les commandes artisan.",
+                "hashtags": ["#laravel", "#bdd"]
+            },
+            {
+                "titre": "Mes ressources Laravel préférées",
+                "description": "Laracasts, Laravel News, documentation : mes favoris.",
+                "hashtags": ["#laravel", "#ressources"]
+            },
+            {
+                "titre": "Blade vs Vue : qui fait quoi ?",
+                "description": "Comprendre quand utiliser Blade et quand préférer Vue côté front.",
+                "hashtags": ["#laravel", "#vuejs"]
+            }
+        ]
     },
     {
-        "name": "Neelab",
-        "email": "neelab@example.com",
-        "password": "test123"
+        "name": "Thomas Ribeiro",
+        "email": "thomas.ribeiro@pushmycode.dev",
+        "password": "test123",
+        "biographie": "Ingénieur logiciel dans une startup.\nJ’adore automatiser et optimiser les workflows.\nJ’utilise beaucoup Git, CI/CD et GitHub Actions.\nToujours prêt à partager des astuces productivité.",
+        "posts": [
+            {
+                "titre": "Optimiser un workflow Git",
+                "description": "Branches, commits propres et PR efficaces.",
+                "hashtags": ["#git", "#workflow"]
+            },
+            {
+                "titre": "CI/CD simplifié avec GitHub Actions",
+                "description": "Automatisez vos déploiements et tests unitaires.",
+                "hashtags": ["#github", "#devops"]
+            },
+            {
+                "titre": "Secrets .env : bien les gérer",
+                "description": "Ne jamais push tes clés d’API ! Voici quoi faire.",
+                "hashtags": ["#security", "#dotenv"]
+            }
+        ]
+    },
+    {
+        "name": "Sofia Belkacem",
+        "email": "sofia.belkacem@pushmycode.dev",
+        "password": "test123",
+        "biographie": "Développeuse front React/Vue avec une formation en ingénierie.\nJe m’intéresse à la qualité du code, aux tests et à l'open source.\nJ’aime faire des revues de code entre potes pour progresser.\nFan de composantisation bien pensée.",
+        "posts": [
+            {
+                "titre": "Tester ses composants Vue",
+                "description": "Découverte de Vitest pour du test unitaire efficace.",
+                "hashtags": ["#vuejs", "#tests"]
+            },
+            {
+                "titre": "Créer des composants réutilisables",
+                "description": "Évitez le copier-coller avec des composants bien pensés.",
+                "hashtags": ["#components", "#cleanCode"]
+            },
+            {
+                "titre": "Participer à un projet open source",
+                "description": "Premiers pas dans l’open source : où chercher et comment contribuer.",
+                "hashtags": ["#opensource", "#devtips"]
+            }
+        ]
     }
 ]

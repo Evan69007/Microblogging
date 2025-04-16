@@ -13,6 +13,21 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::factory(10)->create();
+        $jsonData = file_get_contents(database_path('data/users.json'));
+
+        $data = json_decode($jsonData, true);
+
+        for ($i = 0; $i < count($data); $i += 1)
+        {
+            foreach($data[$i]['posts'] as $post)
+            {
+                $post = Post::create([
+                    'user_id' => ($i + 1),
+                    'titre' => $post['titre'],
+                    'description' => $post['description'],
+                    'hashtags' => $post['hashtags'],
+                ]);
+            }
+        }
     }
 }

@@ -109,6 +109,7 @@ const submitForm = async () => {
 
     if (response.ok) {
       const data = await response.json();
+      sessionStorage.setItem("userName", formData.value.name);
       alert("Profil mis à jour !");
       // Redirection vers Profil.vue avec la biographie mise à jour
       router.push("/profil");
