@@ -85,7 +85,10 @@ onMounted(async () => {
   try {
     isLoading.value = true;
     const post = await api.getPost(postId);
-    post.hashtags = post.hashtags.join(", ");
+    if (post.hashtags) {
+      post.hashtags = post.hashtags.join(", ");
+    }
+
     postToEdit.value = post;
     isLoading.value = false;
   } catch (error) {
