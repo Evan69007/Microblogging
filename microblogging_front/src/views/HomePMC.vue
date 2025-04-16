@@ -1,11 +1,10 @@
 <template>
   <div class="min-h-screen bg-gray-900">
-    <NavBarPMC />
     <div class="container mx-auto px-4 py-8 mt-32">
       <h2 class="text-white text-3xl font-bold mb-8 text-center">
         Tous les Posts
       </h2>
-      <div class="mt-16">
+      <div class="flex mt-16 justify-center">
         <PostList :posts="posts" />
       </div>
     </div>
@@ -14,7 +13,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import NavBarPMC from "@/components/NavBar/NavBarPMC.vue";
+
 import PostList from "@/components/Posts/PostList.vue";
 import api from "@/services/api.js";
 

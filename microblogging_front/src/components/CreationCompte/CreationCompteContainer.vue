@@ -96,6 +96,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import Biography from "../Profil/Biography.vue";
 
 // Formulaire de création de compte / modification de profil
 const form = ref({
@@ -105,41 +106,54 @@ const form = ref({
   confirmPassword: "",
 });
 
-const router = useRouter()
+const router = useRouter();
 // Fonction pour soumettre le formulaire
 async function submitForm() {
-  	// Validation du mot de passe
-	if (form.value.password !== form.value.confirmPassword) {
-		alert("Les mots de passe ne correspondent pas.");
-		return;
-	}
-	else {
-		try {
-			const response = await fetch("http://localhost:8000/api/register", {
-				method: "POST",
-				headers: {
-					"Content-type": "application/json",
-					Accept: "application/json",
-				},
-				body: JSON.stringify(form.value),
-			})
-			const data = await response.json()
-			sessionStorage.setItem("access_token", JSON.stringify(data))
-			sessionStorage.setItem("userName", JSON.stringify(form.value.name))
-			const access_token = JSON.parse(sessionStorage.getItem("access_token"));
-            const user = await fetch("http://localhost:8000/api/user", {
-              headers: {
-                Authorization: `${access_token.token_type} ${access_token.access_token}`,
-                Accept: "application/json",
-              },
-            });
-            const user_data = await user.json();
-			router.push(`/modif-profil/${user_data.id}`)
-		}
-		catch(error) {
-			console.error("Error: ", error)
-		}
-	}
+  // Validation du mot de passe
+  if (form.value.password !== form.value.confirmPassword) {
+    alert("Les mots de passe ne correspondent pas.");
+    return;
+  } else {
+    try {
+      const response = await fetch("http://localhost:8000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(form.value),
+      });
+      const data = await response.json();
+      delete data.user;
+      sessionStorage.setItem("access_token", JSON.stringify(data));
+      sessionStorage.setItem("userName", JSON.stringify(form.value.name));
+      const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+      const user = await fetch("http://localhost:8000/api/user", {
+        headers: {
+          Authorization: `${access_token.token_type} ${access_token.access_token}`,
+          Accept: "application/json",
+        },
+      });
+      const user_data = await user.json();
+      const profil_user = await fetch(
+        "http://localhost:8000/api/Profil_Users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user_data.id,
+            biographie: "",
+          }),
+        }
+      );
+      router.push(`/modif-profil/${user_data.id}`);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  }
 }
 </script>
 

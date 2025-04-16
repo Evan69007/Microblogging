@@ -20,7 +20,13 @@ class ProfilUsersController extends Controller
          {
             $Profil_Users = new Profil_Users();
             $Profil_Users->user_id = $request->user_id;
-            $Profil_Users->biographie = $request->biographie;
+            if(!empty($request->biographie))
+            {
+                $Profil_Users->biographie = $request->biographie;
+            }
+            else{
+                $Profil_Users->biographie = "";
+            }
             $Profil_Users->created_at = Carbon::now()->toDateTimeString();
             $Profil_Users->save();
 
@@ -32,7 +38,7 @@ class ProfilUsersController extends Controller
           */
          public function show(string $id)
          {
-            $Profil_Users = Profil_Users::with('user')->findOrFail($id);
+            $Profil_Users = Profil_Users::with('user')->where('user_id', $id)->first();
             if(!empty($Profil_Users)){
              return response()->json($Profil_Users);}
             else{
