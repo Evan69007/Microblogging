@@ -4,21 +4,18 @@
       <div class="w-full max-w-4xl bg-gray-900 p-6 rounded-xl shadow-lg">
         <h2 class="text-3xl text-gray-400 mb-4">Modifier le Post</h2>
 
-        <!-- Affichage du post à modifier via PostCard.vue -->
-        <PostCard :post="postToEdit" @editPost="updatePost" />
-
         <!-- Formulaire de modification de post -->
-        <form @submit.prevent="submitForm">
+        <form v-if="!isLoading" @submit.prevent="submitForm">
           <div class="mb-6">
             <label for="title" class="block text-sm font-medium text-gray-300"
               >Titre</label
             >
             <input
               id="title"
-              v-model="postToEdit.title"
+              v-model="postToEdit.titre"
               type="text"
               placeholder="Titre du post"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               required
             />
           </div>
@@ -29,9 +26,9 @@
             >
             <textarea
               id="content"
-              v-model="postToEdit.content"
+              v-model="postToEdit.description"
               placeholder="Écrivez votre post ici"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
               rows="5"
               required
             ></textarea>
@@ -43,10 +40,10 @@
             >
             <input
               id="tags"
-              v-model="postToEdit.tags"
+              v-model="postToEdit.hashtags"
               type="text"
               placeholder="Séparez les tags par une virgule"
-              class="w-full p-3 border border-gray-300 rounded-md mt-2"
+              class="w-full p-3 border border-gray-300 rounded-md mt-2 text-black"
             />
           </div>
 
@@ -68,27 +65,43 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import PostCard from "@/components/Posts/PostCard.vue"; // Importer le composant PostCard
+import api from "@/services/api.js";
 
 // Récupérer les paramètres de la route pour obtenir l'id du post
 const route = useRoute();
 const router = useRouter();
 const postId = route.params.id;
+const postToEdit = ref({
+  titre: "",
+  description: "",
+  hashtags: "",
+});
+const isLoading = ref(false);
 
 // Données simulées pour les posts
 
 // Trouver le post à modifier en fonction de l'id passé dans l'URL
-const postToEdit = ref(
-  allPosts.value.find((post) => post.id === parseInt(postId))
-);
+onMounted(async () => {
+  try {
+    isLoading.value = true;
+    const post = await api.getPost(postId);
+    post.hashtags = post.hashtags.join(", ");
+    postToEdit.value = post;
+    isLoading.value = false;
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-function submitForm() {
-  console.log("Post modifié :", postToEdit.value);
+async function submitForm() {
+  postToEdit.value.hashtags = postToEdit.value.hashtags.split(", ");
+  await api.updatePost(postId, postToEdit.value);
   router.push("/profil"); // Retour vers Profil.vue après modification
 }
 
-function updatePost(updatedPost) {
-  postToEdit.value = updatedPost;
-}
+// function updatePost(updatedPost) {
+//   postToEdit.value = updatedPost;
+// }
 </script>
 
 <style scoped>

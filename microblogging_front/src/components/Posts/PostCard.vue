@@ -41,7 +41,7 @@
       class="mt-4 flex justify-between"
     >
       <button
-        @click="editPost"
+        @click="editPost(post.id)"
         class="bg-green-800 text-white py-1 px-4 rounded-md hover:bg-blue-600"
       >
         Modifier
@@ -76,8 +76,8 @@ onMounted(() => {
 const emit = defineEmits(["editPost", "deletePost"]);
 
 // Fonction pour appeler l'événement de modification
-function editPost() {
-  emit("editPost", post);
+function editPost(id) {
+  router.push(`/modif-post/${id}`);
 }
 
 // Fonction pour appeler l'événement de suppression
