@@ -7,17 +7,17 @@
         "posts": [
             {
                 "titre": "Améliorer l'accessibilité avec ARIA",
-                "description": "Petit rappel sur les rôles ARIA pour rendre vos composants accessibles.",
+                "description": "Les rôles ARIA permettent d'enrichir les balises HTML sémantiquement.\nIls sont utiles pour améliorer la navigation avec des lecteurs d'écran.",
                 "hashtags": ["#accessibilite", "#webdev"]
             },
             {
                 "titre": "Grid vs Flexbox",
-                "description": "Quand utiliser l’un ou l’autre ? Quelques cas d’usage concrets.",
+                "description": "Flexbox est adapté aux alignements en ligne ou colonne, tandis que Grid gère des structures plus complexes.\nChaque outil a sa logique et ses cas d'usage.",
                 "hashtags": ["#css", "#responsive"]
             },
             {
                 "titre": "Structurer une app Vue 3",
-                "description": "Exemples de structure propre avec composantisation et props bien gérés.",
+                "description": "Utiliser des composants bien nommés, découper le code proprement et organiser les props aide à maintenir une base stable.\nLes hooks composables permettent aussi de séparer la logique.",
                 "hashtags": ["#vuejs", "#cleanCode"]
             }
         ]
@@ -30,17 +30,17 @@
         "posts": [
             {
                 "titre": "API REST : les bonnes pratiques",
-                "description": "Status codes, routes cohérentes, pagination, on fait le tour.",
+                "description": "Développeur full stack JavaScript spécialisé Node.js.\nPassionné par les API REST et la performance serveur.\nToujours partant pour des hacks techniques.\nTeam dark mode à fond.",
                 "hashtags": ["#api", "#rest"]
             },
             {
                 "titre": "Utiliser MongoDB avec Mongoose",
-                "description": "Schema, modèle, requêtes : un guide rapide et clair.",
+                "description": "Les codes HTTP doivent être utilisés clairement : 200 pour OK, 201 pour création, 422 pour erreur de validation.\nLes routes doivent être prévisibles et logiques.",
                 "hashtags": ["#mongodb", "#nodejs"]
             },
             {
                 "titre": "Async/Await expliqué simplement",
-                "description": "Fini les callbacks ! Voici un résumé de la logique async moderne.",
+                "description": "Mongoose permet de définir des schémas pour structurer les documents MongoDB.\nIl facilite aussi la validation et les relations entre collections.",
                 "hashtags": ["#javascript", "#async"]
             }
         ]
@@ -53,17 +53,17 @@
         "posts": [
             {
                 "titre": "Comprendre les migrations Laravel",
-                "description": "Créer et gérer sa base proprement avec les commandes artisan.",
+                "description": "Les migrations permettent de versionner les schémas de base de données.\nChaque fichier crée ou modifie des tables de façon contrôlée.",
                 "hashtags": ["#laravel", "#bdd"]
             },
             {
                 "titre": "Mes ressources Laravel préférées",
-                "description": "Laracasts, Laravel News, documentation : mes favoris.",
+                "description": "La documentation officielle est claire.\nLaracasts et Laravel News complètent avec des cas pratiques et de l’actualité.",
                 "hashtags": ["#laravel", "#ressources"]
             },
             {
                 "titre": "Blade vs Vue : qui fait quoi ?",
-                "description": "Comprendre quand utiliser Blade et quand préférer Vue côté front.",
+                "description": "Blade permet le rendu côté serveur, Vue gère l’interactivité côté client.\nLes deux peuvent cohabiter dans une application Laravel.",
                 "hashtags": ["#laravel", "#vuejs"]
             }
         ]
@@ -76,17 +76,17 @@
         "posts": [
             {
                 "titre": "Optimiser un workflow Git",
-                "description": "Branches, commits propres et PR efficaces.",
+                "description": "Ingénieur logiciel dans une startup.\nJ’adore automatiser et optimiser les workflows.\nJ’utilise beaucoup Git, CI/CD et GitHub Actions.\nToujours prêt à partager des astuces productivité.",
                 "hashtags": ["#git", "#workflow"]
             },
             {
                 "titre": "CI/CD simplifié avec GitHub Actions",
-                "description": "Automatisez vos déploiements et tests unitaires.",
+                "description": "GitHub Actions permet d’automatiser les tests, le linting ou le déploiement.\nChaque action est déclenchée par un événement Git.",
                 "hashtags": ["#github", "#devops"]
             },
             {
                 "titre": "Secrets .env : bien les gérer",
-                "description": "Ne jamais push tes clés d’API ! Voici quoi faire.",
+                "description": "Les variables d’environnement ne doivent jamais être versionnées.\nIl est recommandé d’utiliser `.env` et `.env.example` pour le partage.",
                 "hashtags": ["#security", "#dotenv"]
             }
         ]
@@ -99,17 +99,17 @@
         "posts": [
             {
                 "titre": "Tester ses composants Vue",
-                "description": "Découverte de Vitest pour du test unitaire efficace.",
+                "description": "Vitest permet de tester les composants Vue avec une syntaxe simple et moderne.\nIl est compatible avec les outils Vite et Vue 3.",
                 "hashtags": ["#vuejs", "#tests"]
             },
             {
                 "titre": "Créer des composants réutilisables",
-                "description": "Évitez le copier-coller avec des composants bien pensés.",
+                "description": "Un composant réutilisable est isolé, configurable par des props, et sans dépendances inutiles.\nCela évite les répétitions et facilite la maintenance.",
                 "hashtags": ["#components", "#cleanCode"]
             },
             {
                 "titre": "Participer à un projet open source",
-                "description": "Premiers pas dans l’open source : où chercher et comment contribuer.",
+                "description": "Contribuer commence par lire la documentation et choisir un projet qui nous parle.\nCorriger une faute de typo ou un README est déjà un bon début.",
                 "hashtags": ["#opensource", "#devtips"]
             }
         ]
