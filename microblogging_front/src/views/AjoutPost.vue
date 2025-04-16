@@ -1,10 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gray-800 py-6 flex flex-col justify-center sm:py-12">
+  <div
+    class="min-h-screen bg-gray-800 py-6 flex flex-col justify-center sm:py-12"
+  >
     <div class="relative py-3 sm:max-w-xl sm:mx-auto">
-      <div class="relative px-4 py-10 bg-gray-900 mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
+      <div
+        class="relative px-4 py-10 bg-gray-900 mx-8 md:mx-0 shadow rounded-3xl sm:p-10"
+      >
         <div class="max-w-md mx-auto">
           <div class="divide-y divide-gray-700">
-            <div class="py-8 text-base leading-6 space-y-4 text-gray-300 sm:text-lg sm:leading-7">
+            <div
+              class="py-8 text-base leading-6 space-y-4 text-gray-300 sm:text-lg sm:leading-7"
+            >
               <div class="flex flex-col">
                 <label class="leading-loose text-orange-400">Titre</label>
                 <input
@@ -39,12 +45,10 @@
   </div>
 </template>
 
-
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import api from "@/services/api.js";
-
 
 const router = useRouter();
 const newPost = ref({
@@ -52,22 +56,26 @@ const newPost = ref({
   description: "",
 });
 
-
 async function submitPost() {
   try {
-    const userInfo = JSON.parse(sessionStorage.getItem("access_token"));
+    const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+    const response = await fetch("http://localhost:8000/api/user", {
+      headers: {
+        Authorization: `${access_token.token_type} ${access_token.access_token}`,
+        Accept: "application/json",
+      },
+    });
+    const userInfo = await response.json();
     if (!userInfo) {
       console.error("Utilisateur non connecté");
       return;
     }
 
-
     const postData = {
       titre: newPost.value.titre,
       description: newPost.value.description,
-      user_id: userInfo.user.id
+      user_id: userInfo.id,
     };
-
 
     await api.createPost(postData);
     router.push("/");

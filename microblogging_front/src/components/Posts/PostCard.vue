@@ -47,7 +47,7 @@
         Modifier
       </button>
       <button
-        @click="deletePost"
+        @click="deletePost(post.id)"
         class="bg-red-500 text-white py-1 px-4 rounded-md hover:bg-red-600"
       >
         Supprimer
@@ -58,11 +58,14 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import api from "@/services/api.js";
 
 // Propriétés passées par le parent
 defineProps({
   post: Object,
 });
+const router = useRouter();
 const currentUser = ref("");
 // Fonction pour récupérer l'utilisateur connecté (à partir de localStorage par exemple)
 onMounted(() => {
@@ -78,8 +81,17 @@ function editPost() {
 }
 
 // Fonction pour appeler l'événement de suppression
-function deletePost() {
-  emit("deletePost", post);
+async function deletePost(id) {
+  try {
+    const response = await api.deletePost(id);
+    if (response === "Erreur") {
+      console.error(response);
+    } else {
+      router.go(0);
+    }
+  } catch (error) {
+    console.error("Error: ", error);
+  }
 }
 </script>
 
