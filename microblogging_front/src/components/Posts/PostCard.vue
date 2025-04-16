@@ -21,7 +21,7 @@
         <span
           v-for="tag in post.hashtags"
           :key="tag"
-          class="bg-orange-300 text-sm text-black font-bold pl-1 pr-1 pb-1 tags"
+          class="bg-teal-800 text-sm text-white font-bold pl-1 pr-1 pb-1 tags"
           >{{ tag }}</span
         >
       </div>

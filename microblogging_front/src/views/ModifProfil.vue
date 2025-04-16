@@ -58,7 +58,7 @@ const router = useRouter();
 onMounted(async () => {
   try {
     // Récupérer les informations actuelles de l'utilisateur
-	const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+    const access_token = JSON.parse(sessionStorage.getItem("access_token"));
     const response = await fetch("http://localhost:8000/api/user", {
       method: "GET",
       headers: {
@@ -67,9 +67,12 @@ onMounted(async () => {
         Authorization: `${access_token.token_type} ${access_token.access_token}`, // Remplacer par le token d'authentification de l'utilisateur
       },
     });
-	const data = await response.json();
-	const profil = await fetch(`http://localhost:8000/api/Profil_Users/${data.id}`)
-	const profil_data = await profil.json()
+    const data = await response.json();
+    const profil = await fetch(
+      `http://localhost:8000/api/Profil_Users/${data.id}`
+    );
+    const profil_data = await profil.json();
+
     if (response.ok && profil.ok) {
       // Remplir le formulaire avec les données actuelles de l'utilisateur
       formData.value.name = data.name;
@@ -80,7 +83,7 @@ onMounted(async () => {
     }
   } catch (error) {
     console.error(
-      "Erreur lors de l'appel API pour récupérer les données :",
+      "Erreur lors de l'appel API pour récupérer les données :\n",
       error
     );
   }
@@ -88,14 +91,12 @@ onMounted(async () => {
 
 // Fonction de soumission pour sauvegarder les modifications dans l'API
 const submitForm = async () => {
-	if(formData.value.password.length === 0)
-	{
-		delete formData.value.password
-	}
+  if (formData.value.password.length === 0) {
+    delete formData.value.password;
+  }
   try {
-	
     // Envoi des données à l'API pour sauvegarder la biographie
-	const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+    const access_token = JSON.parse(sessionStorage.getItem("access_token"));
     const response = await fetch("http://localhost:8000/api/user/update", {
       method: "PUT",
       headers: {
@@ -106,12 +107,11 @@ const submitForm = async () => {
       body: JSON.stringify(formData.value),
     });
 
-   
     if (response.ok) {
-		const data = await response.json();
-		alert("Profil mis à jour !");
-		// Redirection vers Profil.vue avec la biographie mise à jour
-		router.push("/profil");
+      const data = await response.json();
+      alert("Profil mis à jour !");
+      // Redirection vers Profil.vue avec la biographie mise à jour
+      router.push("/profil");
     } else {
       alert("Erreur lors de la mise à jour du profil.");
     }
