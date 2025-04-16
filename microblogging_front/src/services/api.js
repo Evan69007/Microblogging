@@ -54,4 +54,23 @@ export default {
       return error;
     }
   },
+
+  async addLike(id_post, id_user) {
+    const response = await api.post("/likes", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        user_id: id_user,
+        post_id: id_post,
+      }),
+    });
+    return response.data;
+  },
+
+  async removeLike(id) {
+    const response = await api.delete(`/likes/${id}`);
+    return response.data;
+  },
 };

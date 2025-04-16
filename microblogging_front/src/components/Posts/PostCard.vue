@@ -27,11 +27,13 @@
       </div>
       <div class="flex space-x-3">
         <span class="flex items-center">
-          <heart-icon class="text-red-500" /> {{ post.likes }}
+          <button @click="toggleLike(post.id)">
+            {{ isLiked ? "❤️" : "🤍" }}
+          </button>
         </span>
-        <span class="flex items-center">
+        <!-- <span class="flex items-center">
           <comment-icon class="text-blue-500" /> {{ post.comments }}
-        </span>
+        </span> -->
       </div>
     </div>
 
@@ -64,6 +66,7 @@ defineProps({
 });
 const router = useRouter();
 const currentUser = ref("");
+const isLiked = ref(false);
 // Fonction pour récupérer l'utilisateur connecté (à partir de localStorage par exemple)
 onMounted(() => {
   currentUser.value = sessionStorage.getItem("userName"); // Remplace par la méthode que tu utilises pour gérer l'utilisateur connecté
@@ -88,6 +91,42 @@ async function deletePost(id) {
     }
   } catch (error) {
     console.error("Error: ", error);
+  }
+}
+
+async function toggleLike(post_id) {
+  if (isLiked.value) {
+    isLiked.value = false;
+    const response = await fetch(`http://localhost:8000/api/likes/${post_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+  } else {
+    isLiked.value = true;
+    const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+    const response = await fetch("http://localhost:8000/api/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `${access_token.token_type} ${access_token.access_token}`, // Remplacer par le token d'authentification de l'utilisateur
+      },
+    });
+    const data = await response.json();
+    const like = await fetch("http://localhost:8000/api/likes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        user_id: data.id,
+        post_id: post_id,
+      }),
+    });
   }
 }
 </script>
