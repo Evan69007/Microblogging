@@ -21,6 +21,11 @@ class PostController extends Controller
             'user_id' => $request->user_id,
         ]);
 
+        if (isset($request->hashtags))
+        {
+            $post->hashtags = $request->hashtags;
+        }
+
         return response()->json($post->load('user'));
     }
 
