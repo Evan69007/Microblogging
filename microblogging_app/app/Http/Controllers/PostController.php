@@ -18,7 +18,7 @@ class PostController extends Controller
         $post = Post::create([
             'titre' => $request->titre,
             'description' => $request->description,
-            'user_id' => auth()->id()
+            'user_id' => $request->user_id,
         ]);
 
         return response()->json($post->load('user'));
@@ -39,8 +39,9 @@ class PostController extends Controller
         return response()->json($post->load('user'));
     }
 
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::findOrFail($id);
         $post->delete();
         return response()->json(['message' => 'Post supprimé']);
     }
