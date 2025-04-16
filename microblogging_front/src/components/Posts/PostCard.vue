@@ -1,17 +1,17 @@
 <template>
-  <div class="bg-gray-900 p-6 rounded-xl shadow-lg">
+  <div class="bg-gray-900 max-w-256 p-6 rounded-xl shadow-lg">
     <!-- Post Header -->
-    <div class="flex justify-between items-start">
+    <div class="flex justify-center items-start">
       <h3 class="text-xl font-semibold text-orange-400">{{ post.titre }}</h3>
       <div class="text-sm text-gray-500">{{ post.date }}</div>
     </div>
 
     <!-- Post Content -->
-    <p class="text-lg text-gray-300 mt-4">{{ post.description }}</p>
+    <p class="text-center text-lg text-gray-300 mt-4">{{ post.description }}</p>
 
     <!-- Post Author -->
     <div class="flex items-center space-x-2 mt-4">
-      <span class="text-gray-400">Publié par</span>
+      <span class="text-white">Publié par</span>
       <span class="text-yellow-300">{{ post.user.name }}</span>
     </div>
 
@@ -21,7 +21,7 @@
         <span
           v-for="tag in post.hashtags"
           :key="tag"
-          class="text-sm text-teal-400"
+          class="bg-orange-300 text-sm text-black font-bold pl-1 pr-1 pb-1 tags"
           >{{ tag }}</span
         >
       </div>
@@ -36,13 +36,10 @@
     </div>
 
     <!-- Buttons to Edit and Delete the Post, only visible to the author -->
-    <div
-      v-if="post.user.name === currentUser"
-      class="mt-4 flex justify-between"
-    >
+    <div v-if="post.user.name === currentUser" class="flex justify-end">
       <button
         @click="editPost(post.id)"
-        class="bg-green-800 text-white py-1 px-4 rounded-md hover:bg-blue-600"
+        class="bg-green-800 text-white py-1 px-4 rounded-md hover:bg-blue-600 mr-4"
       >
         Modifier
       </button>
@@ -96,5 +93,7 @@ async function deletePost(id) {
 </script>
 
 <style scoped>
-/* Styles spécifiques à la carte de post */
+.tags {
+  border-radius: 10px;
+}
 </style>

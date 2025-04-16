@@ -10,7 +10,7 @@
       v-else
       v-for="post in sortedPosts"
       :key="post.id"
-      class="bg-gray-800 rounded-md shadow p-4"
+      class="bg-gray-800 rounded-md shadow p-4 max-w-256 p-4"
     >
       <PostCard
         :post="post"
