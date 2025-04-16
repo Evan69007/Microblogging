@@ -57,8 +57,8 @@ class LikesController extends Controller
           */
     public function destroy(string $id)
     {
-        if(Likes::where('id', $id)->exists()){
-            $Likes = Likes::find($id);
+        if(Likes::where('post_id', $id)->exists()){
+            $Likes = Likes::where('post_id', $id)->first();
             $Likes->delete();
             return response()->json(['message' => 'Like supprimé']);
         }else{
