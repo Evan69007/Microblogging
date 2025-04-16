@@ -2,21 +2,21 @@
   <div class="bg-gray-900 max-w-256 p-6 rounded-xl shadow-lg">
     <!-- Post Header -->
     <div class="flex justify-center items-start">
-      <h3 class="text-xl font-semibold text-orange-400">{{ post.titre }}</h3>
+      <h3 class="text-2xl font-semibold text-orange-400">{{ post.titre }}</h3>
       <div class="text-sm text-gray-500">{{ post.date }}</div>
     </div>
 
     <!-- Post Content -->
-    <p class="text-center text-lg text-gray-300 mt-4">{{ post.description }}</p>
+    <p class="text-center text-lg text-gray-300 mt-8">{{ post.description }}</p>
 
     <!-- Post Author -->
-    <div class="flex items-center space-x-2 mt-4">
+    <div class="flex items-center space-x-2 mt-2">
       <span class="text-white">Publié par</span>
       <span class="text-yellow-300">{{ post.user.name }}</span>
     </div>
 
     <!-- Post Footer: Tags, Likes, Comments -->
-    <div class="flex items-center justify-between mt-4">
+    <div class="flex items-center justify-between mt-2">
       <div class="flex space-x-3">
         <span
           v-for="tag in post.hashtags"
@@ -38,7 +38,7 @@
     </div>
 
     <!-- Buttons to Edit and Delete the Post, only visible to the author -->
-    <div v-if="post.user.name === currentUser" class="flex justify-end">
+    <div v-if="post.user.name === currentUser" class="flex justify-end mt-2">
       <button
         @click="editPost(post.id)"
         class="bg-green-800 text-white py-1 px-4 rounded-md hover:bg-blue-600 mr-4"
