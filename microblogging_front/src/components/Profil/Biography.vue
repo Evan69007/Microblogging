@@ -6,15 +6,12 @@
 </template>
 
 <script setup>
-// Prop pour recevoir la biographie de l'utilisateur
+// 📥 Ce composant reçoit une biographie (chaîne de caractères) depuis son parent
 defineProps({
   biography: {
-    type: String,
-    required: true,
+    type: String, // La biographie est une chaîne
+    required: true, // Elle est obligatoire pour afficher le contenu
   },
 });
 </script>
-
-<style scoped>
-/* Styles spécifiques à la biographie */
-</style>
+<!-- Ce composant est destiné à afficher la biographie d’un utilisateur, reçue comme prop, dans une carte ou une section de profil. -->

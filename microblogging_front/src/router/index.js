@@ -1,50 +1,65 @@
 // src/router/index.js
 
-// Import des fonctions du Vue Router
+// 📦 Importation des fonctions du Vue Router
 import { createRouter, createWebHistory } from "vue-router";
 
-// Import de ta vue principale (page d’accueil)
-import HomePMC from "@/views/HomePMC.vue";
-import Connexion from "@/views/Connexion.vue";
-import Profil from "@/views/Profil.vue";
-import AjoutPost from "@/views/AjoutPost.vue";
-import CreationCompte from "@/views/CreationCompte.vue";
-import ModifPost from "@/views/ModifPost.vue";
-import ModifProfil from "@/views/ModifProfil.vue";
+// 📁 Importation de toutes les vues de ton application
+import HomePMC from "@/views/HomePMC.vue"; // Page d’accueil
+import Connexion from "@/views/Connexion.vue"; // Connexion utilisateur
+import Profil from "@/views/Profil.vue"; // Profil utilisateur
+import AjoutPost from "@/views/AjoutPost.vue"; // Création d’un post
+import CreationCompte from "@/views/CreationCompte.vue"; // Création de compte
+import ModifPost from "@/views/ModifPost.vue"; // Modifier un post existant
+import ModifProfil from "@/views/ModifProfil.vue"; // Modifier son profil
 
-// Déclaration des routes
+// 🧭 Déclaration des routes
 const routes = [
   {
-    path: "/", // URL de la page
-    component: HomePMC, // Composant à afficher (la vue)
+    path: "/", // URL racine
+    component: HomePMC, // Page d’accueil
   },
-  { path: "/connexion", component: Connexion },
-  { path: "/profil", component: Profil },
-  { path: "/post", component: AjoutPost },
-  { path: "/creation-compte", component: CreationCompte },
   {
-    path: "/modif-post/:id", // Route dynamique avec un paramètre 'id' pour identifier le post à modifier
+    path: "/connexion", // Page de connexion
+    component: Connexion,
+  },
+  {
+    path: "/profil", // Page de profil
+    component: Profil,
+  },
+  {
+    path: "/post", // Page de création d’un post
+    component: AjoutPost,
+  },
+  {
+    path: "/creation-compte", // Page d’inscription
+    component: CreationCompte,
+  },
+  {
+    path: "/modif-post/:id", // Page pour modifier un post (paramètre dynamique :id)
     name: "ModifPost",
     component: ModifPost,
-    props: true, // Cela permet de passer l'id du post comme prop dans ModifPost.vue
+    props: true, // Permet de passer l'id comme prop au composant
   },
   {
-    path: "/modif-profil/:id", // Route dynamique avec un paramètre 'id' pour identifier le post à modifier
+    path: "/modif-profil/:id", // Page pour modifier la bio/profil
     name: "ModifProfil",
     component: ModifProfil,
-    props: true, // Cela permet de passer l'id du post comme prop dans ModifPost.vue
+    props: true,
   },
-
-  // Tu pourras ajouter d'autres routes ici, par exemple :
-  // { path: "/connexion", component: Connexion },
-  // { path: "/profil", component: Profil },
 ];
 
-// Création de l'instance du routeur avec l'historique HTML5 (sans # dans l’URL)
+// 🛠️ Création de l’instance du routeur
 const router = createRouter({
-  history: createWebHistory(), // mode 'history' (chemins normaux)
-  routes, // liste des routes définies
+  history: createWebHistory(), // Utilise l'historique HTML5 (pas de # dans l’URL)
+  routes, // Liste des routes définies ci-dessus
 });
 
-// Export du routeur pour l’utiliser dans main.js
+// 🚀 Export du routeur pour pouvoir l’utiliser dans main.js
 export default router;
+
+/* Ce fichier configure le système de navigation de ton application Vue.js.
+
+Il permet de :
+    Relier chaque URL à un composant Vue
+    Gérer les routes dynamiques avec des paramètres (/modif-post/:id)
+    Naviguer dans l'application sans recharger la page */

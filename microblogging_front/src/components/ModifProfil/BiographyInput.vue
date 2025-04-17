@@ -17,20 +17,25 @@
 <script>
 export default {
   props: {
+    // 🔁 `modelValue` est la convention Vue 3 pour utiliser `v-model` avec des composants personnalisés
     modelValue: {
-      // Renommer la prop en modelValue pour l'utiliser avec v-model
       type: String,
       required: true,
     },
   },
   methods: {
+    // 📤 Envoie la nouvelle valeur saisie vers le parent via `v-model`
     updateBiography(event) {
-      this.$emit("update:modelValue", event.target.value); // Émettre l'événement update:modelValue
+      this.$emit("update:modelValue", event.target.value);
     },
   },
 };
 </script>
 
 <style scoped>
-/* Styles spécifiques pour le champ de biographie */
+/* 🎨 Styles propres au composant */
 </style>
+<!-- Ce composant encapsule un champ textarea pour saisir une biographie utilisateur, avec les avantages suivants :
+    Il peut être réutilisé partout où on veut un champ biographie.
+    Il est contrôlé avec v-model dans un composant parent (ex. ModifProfil.vue ou CreationCompte.vue).
+    Il respecte la syntaxe de liaison descendante/montante (props + emit), propre à Vue 3. -->

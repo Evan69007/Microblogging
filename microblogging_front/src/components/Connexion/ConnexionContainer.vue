@@ -57,20 +57,24 @@
 </template>
 
 <script>
-import Logo from "../NavBar/Logo.vue"; // Importation du composant Logo
+import Logo from "../NavBar/Logo.vue"; // (Actuellement inutilisé, peut être supprimé)
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const router = useRouter();
+
+    // Données du formulaire de connexion
     const formData = ref({
       email: "",
       password: "",
     });
 
+    // Fonction exécutée lors de la soumission
     const submitForm = async () => {
       try {
+        // 🔐 Envoie des identifiants à l'API Laravel
         const response = await fetch("http://localhost:8000/api/login", {
           method: "POST",
           headers: {
@@ -79,19 +83,16 @@ export default {
           },
           body: JSON.stringify(formData.value),
         });
-        /* const response = await axios.post(
-          "http://localhost:8000/api/login",
-          formData.value,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        ); */
+
         const data = await response.json();
+
+        // Si on reçoit bien un token...
         if (data.access_token) {
+          // 💾 Stockage du token dans la session
           sessionStorage.setItem("access_token", JSON.stringify(data));
+
           try {
+            // Récupération de l'utilisateur authentifié
             const access_token = JSON.parse(
               sessionStorage.getItem("access_token")
             );
@@ -102,20 +103,28 @@ export default {
               },
             });
             const user_data = await user.json();
+            // Enregistrement du nom de l'utilisateur pour affichage
             sessionStorage.setItem("userName", user_data.name);
           } catch (error) {
-            console.error("Error: ", error);
+            console.error("Erreur lors de la récupération du user :", error);
           }
 
+          // ✅ Redirection vers la page d’accueil après connexion
           router.push("/");
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Erreur de connexion :", error);
       }
     };
 
-    // Return formData so it's available in the template
+    // On expose les données et la fonction au template
     return { formData, submitForm };
   },
 };
 </script>
+
+<!-- Ce composant a pour but de permettre à un utilisateur :
+    de s’authentifier avec son email et mot de passe
+    de recevoir un token d’authentification depuis ton back-end Laravel
+    d’enregistrer ce token dans sessionStorage pour l’utiliser dans les appels API suivants
+    d’être redirigé automatiquement vers la page d’accueil après connexion réussie -->

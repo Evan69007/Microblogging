@@ -18,19 +18,21 @@
 export default {
   props: {
     modelValue: {
-      // Renommer la prop en modelValue pour l'utiliser avec v-model
+      // Permet la liaison avec v-model dans le composant parent
       type: String,
       required: true,
     },
   },
   methods: {
     updateValue(event) {
-      this.$emit("update:modelValue", event.target.value); // Émettre l'événement update:modelValue
+      // 🔁 Envoie la nouvelle valeur au parent via l’événement v-model
+      this.$emit("update:modelValue", event.target.value);
     },
   },
 };
 </script>
 
 <style scoped>
-/* Styles spécifiques au champ du mot de passe */
+/* 🎨 Styles spécifiques au champ du mot de passe */
 </style>
+<!--  -->

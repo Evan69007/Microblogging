@@ -19,19 +19,25 @@
 export default {
   props: {
     modelValue: {
-      // Renommer la prop en modelValue pour l'utiliser avec v-model
+      // Utilisé avec v-model dans le parent (ex : v-model="form.name")
       type: String,
       required: true,
     },
   },
   methods: {
     updateValue(event) {
-      this.$emit("update:modelValue", event.target.value); // Émettre l'événement update:modelValue
+      // 🔁 Mise à jour du modèle parent via l'événement personnalisé
+      this.$emit("update:modelValue", event.target.value);
     },
   },
 };
 </script>
 
 <style scoped>
-/* Styles spécifiques au champ du nom */
+/* 🎨 Styles spécifiques au champ du nom (tu peux en ajouter ici si besoin) */
 </style>
+
+<!-- Ce composant permet :
+    une saisie propre et réutilisable d’un champ de type texte (nom, email, etc.)
+    une liaison avec le parent grâce à v-model
+    une organisation plus claire de tes formulaires Vue -->

@@ -38,43 +38,52 @@
 </template>
 
 <script setup>
+// 📦 Imports Vue
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+
+// 🧩 Importation des composants enfants du formulaire
 import NomInput from "@/components/ModifProfil/NomInput.vue";
 import EmailInput from "@/components/ModifProfil/EmailInput.vue";
-import BiographyInput from "@/components/ModifProfil/BiographyInput.vue"; // Importation du composant BiographyInput
+import BiographyInput from "@/components/ModifProfil/BiographyInput.vue";
 import PasswordInput from "@/components/ModifProfil/PasswordInput.vue";
 
+// 📄 Données du formulaire pour modifier le profil
 const formData = ref({
-  name: "",
-  email: "",
-  biographie: "",
-  password: "",
+  name: "", // Nom de l'utilisateur
+  email: "", // Email
+  biographie: "", // Bio
+  password: "", // Nouveau mot de passe (optionnel)
 });
 
+// 🔁 Récupération des infos utilisateur connecté
 const router = useRouter();
 
-// Fonction pour récupérer les données de l'utilisateur lors du chargement du composant
+// ⏱️ Dès que le composant est monté, on récupère les données utilisateur + sa bio
 onMounted(async () => {
   try {
-    // Récupérer les informations actuelles de l'utilisateur
+    // 🔐 Récupération du token d'accès depuis sessionStorage
     const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+
+    // 👤 Récupération des données de l'utilisateur via son token
     const response = await fetch("http://localhost:8000/api/user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `${access_token.token_type} ${access_token.access_token}`, // Remplacer par le token d'authentification de l'utilisateur
+        Authorization: `${access_token.token_type} ${access_token.access_token}`,
       },
     });
     const data = await response.json();
+
+    // 🧠 Récupération de la biographie (stockée séparément)
     const profil = await fetch(
       `http://localhost:8000/api/Profil_Users/${data.id}`
     );
     const profil_data = await profil.json();
 
+    // ✅ Si tout est OK, on remplit les champs du formulaire
     if (response.ok && profil.ok) {
-      // Remplir le formulaire avec les données actuelles de l'utilisateur
       formData.value.name = data.name;
       formData.value.email = data.email;
       formData.value.biographie = profil_data.biographie;
@@ -89,30 +98,34 @@ onMounted(async () => {
   }
 });
 
-// Fonction de soumission pour sauvegarder les modifications dans l'API
+// 📨 Fonction appelée à la soumission du formulaire
 const submitForm = async () => {
+  // 🧼 Si le mot de passe n'a pas été modifié, on ne l'envoie pas
   if (formData.value.password.length === 0) {
     delete formData.value.password;
   }
+
   try {
-    // Envoi des données à l'API pour sauvegarder la biographie
+    // 🔐 Récupération du token d'accès
     const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+
+    // 🔄 Requête PUT pour mettre à jour le profil + bio
     const response = await fetch("http://localhost:8000/api/user/update", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `${access_token.token_type} ${access_token.access_token}`, // Remplacer par le token d'authentification
+        Authorization: `${access_token.token_type} ${access_token.access_token}`,
       },
       body: JSON.stringify(formData.value),
     });
 
+    // ✅ Si la réponse est OK
     if (response.ok) {
       const data = await response.json();
       sessionStorage.setItem("userName", formData.value.name);
       alert("Profil mis à jour !");
-      // Redirection vers Profil.vue avec la biographie mise à jour
-      router.push("/profil");
+      router.push("/profil"); // Redirection vers la page profil
     } else {
       alert("Erreur lors de la mise à jour du profil.");
     }
@@ -125,3 +138,9 @@ const submitForm = async () => {
 <style scoped>
 /* Styles spécifiques à ModifProfil.vue */
 </style>
+
+<!-- Ce script gère la modification du profil utilisateur, en :
+    Récupérant les infos actuelles (nom, mail, bio)
+    Pré-remplissant le formulaire avec les valeurs existantes
+    Permettant de modifier et enregistrer les nouvelles valeurs
+    Met à jour à la fois la table users et profil_users -->

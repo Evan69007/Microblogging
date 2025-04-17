@@ -63,18 +63,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import Logo from "./Logo.vue";
+import { ref, onMounted, watch } from "vue"; // Import des hooks de composition
+import { useRoute, useRouter } from "vue-router"; // Pour la navigation et surveillance de la route
+import Logo from "./Logo.vue"; // (Utilisé dans le template de la navbar probablement)
 
+// Initialisation des outils de navigation
 const router = useRouter();
 const route = useRoute();
-const isConnected = ref(false);
-const userName = ref("");
 
+// Reactive refs pour suivre l'état de connexion
+const isConnected = ref(false); // Booléen : l'utilisateur est-il connecté ?
+const userName = ref(""); // Nom affiché dans la navbar (si connecté)
+
+// 🔒 Fonction de déconnexion utilisateur
 async function logout() {
   try {
+    // Récupération du token depuis la session
     const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+
+    // Récupération des données utilisateur via token
     const user = await fetch("http://localhost:8000/api/user", {
       headers: {
         Authorization: `${access_token.token_type} ${access_token.access_token}`,
@@ -82,6 +89,8 @@ async function logout() {
       },
     });
     const user_data = await user.json();
+
+    // Appel de l'API pour se déconnecter
     const response = await fetch(`http://localhost:8000/api/logout`, {
       method: "POST",
       headers: {
@@ -89,44 +98,55 @@ async function logout() {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(user_data),
+      body: JSON.stringify(user_data), // Pas nécessaire ici mais ok
     });
+
     const data = await response.json();
+
+    // Si la déconnexion a réussi
     if (data.message === "User disconnected") {
       isConnected.value = false;
       userName.value = "";
+
+      // Suppression des données locales
       sessionStorage.removeItem("access_token");
       sessionStorage.removeItem("userName");
+
+      // Redirection vers la page de connexion
       router.push("/connexion");
     }
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error:", error); // En cas d'erreur
   }
 }
 
+// ✅ Fonction pour vérifier si l'utilisateur est connecté
 function checkConnection() {
-  isConnected.value = !!sessionStorage.getItem("access_token");
-  userName.value = sessionStorage.getItem("userName") || "";
+  isConnected.value = !!sessionStorage.getItem("access_token"); // Booléen
+  userName.value = sessionStorage.getItem("userName") || ""; // Nom affiché
 }
 
-// Mettre à jour l'état de connexion lors du montage du composant
+// Appelé au moment du montage du composant (quand la navbar est affichée)
 onMounted(() => {
-  checkConnection();
+  checkConnection(); // Vérifie la session active
 });
 
+// Surveille les changements de route pour garder l’état de connexion à jour
 watch(
-  () => route.path, // Watch the route path
+  () => route.path, // À chaque changement de route
   () => {
-    checkConnection(); // Call checkConnection when the route changes
+    checkConnection(); // On re-vérifie l'état de session
   }
 );
 
-// Fonction de navigation
+// 🔁 Fonction utilitaire pour rediriger vers une route
 function navigateTo(route) {
   router.push(route);
 }
 </script>
 
-<style scoped>
-/* Styles spécifiques à la Navbar */
-</style>
+<!-- Ce script fait partie de la Navbar, et son rôle est de :
+    ✅ Détecter si l’utilisateur est connecté à l’application
+    ✅ Afficher dynamiquement son nom ou les liens appropriés (connexion / déconnexion)
+    ✅ Permettre la déconnexion sécurisée via l’API Laravel
+    ✅ Réagir aux changements de route pour mettre à jour l’état de connexion automatiquement -->

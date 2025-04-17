@@ -16,10 +16,19 @@
 </template>
 
 <script setup>
-import ConnexionContainer from "@/components/Connexion/ConnexionContainer.vue"; // Importation du composant de connexion
-import Logo from "@/components/NavBar/Logo.vue"; // Importation du logo
+// 🧩 Import du composant de formulaire de connexion
+import ConnexionContainer from "@/components/Connexion/ConnexionContainer.vue";
+
+// 🎯 Import du composant Logo à afficher (souvent dans le header ou la page)
+import Logo from "@/components/NavBar/Logo.vue";
 </script>
 
 <style scoped>
 /* Ajoute des styles spécifiques à cette vue si nécessaire */
 </style>
+
+<!-- Ce fichier sert à importer les composants nécessaires à ta vue (probablement Connexion.vue), pour afficher :
+    Le logo de l’application
+    Le formulaire de connexion (contenu dans ConnexionContainer.vue)
+
+ -->

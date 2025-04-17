@@ -58,44 +58,48 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import api from "@/services/api.js";
+import api from "@/services/api.js"; // 📦 Service personnalisé pour gérer les appels API (deletePost ici)
 
-// Propriétés passées par le parent
+// Props reçue du composant parent : un objet post
 defineProps({
   post: Object,
 });
-const router = useRouter();
-const currentUser = ref("");
-const isLiked = ref(false);
-// Fonction pour récupérer l'utilisateur connecté (à partir de localStorage par exemple)
+
+const router = useRouter(); // Pour les redirections
+const currentUser = ref(""); // Stocke le nom de l'utilisateur connecté
+const isLiked = ref(false); // État du like sur ce post (local)
+
+// 🔍 Au montage du composant, on récupère l'utilisateur courant (depuis la session)
 onMounted(() => {
-  currentUser.value = sessionStorage.getItem("userName"); // Remplace par la méthode que tu utilises pour gérer l'utilisateur connecté
+  currentUser.value = sessionStorage.getItem("userName");
 });
 
-// Événements pour modifier et supprimer un post
+// 📤 On déclare les événements qui peuvent être émis au parent
 const emit = defineEmits(["editPost", "deletePost"]);
 
-// Fonction pour appeler l'événement de modification
+// ✏️ Redirection vers la page de modification du post
 function editPost(id) {
   router.push(`/modif-post/${id}`);
 }
 
-// Fonction pour appeler l'événement de suppression
+// 🗑️ Suppression d'un post via ton fichier api.js, puis rafraîchissement
 async function deletePost(id) {
   try {
-    const response = await api.deletePost(id);
+    const response = await api.deletePost(id); // Appel au service d'API
     if (response === "Erreur") {
-      console.error(response);
+      console.error(response); // Affiche une erreur si le backend renvoie "Erreur"
     } else {
-      router.go(0);
+      router.go(0); // Recharge la page (peut être remplacé plus tard par mise à jour dynamique)
     }
   } catch (error) {
     console.error("Error: ", error);
   }
 }
 
+// ❤️ Fonction de toggle (like/dislike)
 async function toggleLike(post_id) {
   if (isLiked.value) {
+    // Si déjà liké, on le retire
     isLiked.value = false;
     const response = await fetch(`http://localhost:8000/api/likes/${post_id}`, {
       method: "DELETE",
@@ -105,17 +109,24 @@ async function toggleLike(post_id) {
       },
     });
   } else {
+    // Si pas encore liké, on ajoute un like
     isLiked.value = true;
+
     const access_token = JSON.parse(sessionStorage.getItem("access_token"));
+
+    // On récupère les infos utilisateur via le token
     const response = await fetch("http://localhost:8000/api/user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        Authorization: `${access_token.token_type} ${access_token.access_token}`, // Remplacer par le token d'authentification de l'utilisateur
+        Authorization: `${access_token.token_type} ${access_token.access_token}`,
       },
     });
+
     const data = await response.json();
+
+    // Puis on envoie le like
     const like = await fetch("http://localhost:8000/api/likes", {
       method: "POST",
       headers: {
@@ -130,9 +141,8 @@ async function toggleLike(post_id) {
   }
 }
 </script>
-
-<style scoped>
-.tags {
-  border-radius: 10px;
-}
-</style>
+<!-- Ce script est la logique d’un composant de post individuel, avec plusieurs fonctions clés :
+    ✅ Permet à l’utilisateur connecté de liker ou déliker un post
+    ✅ Permet de modifier ou supprimer un post via des actions (souvent affichées si l’auteur est l’utilisateur courant)
+    ✅ Gère l’état local du like pour un rendu interactif
+    ✅ Communique avec l’API Laravel via fetch ou via un fichier api.js externe-->

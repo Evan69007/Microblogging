@@ -18,20 +18,19 @@
 <script>
 export default {
   props: {
+    // 🔁 Utilisé avec v-model dans le composant parent
     modelValue: {
-      // Renommer la prop en modelValue pour l'utiliser avec v-model
       type: String,
       required: true,
     },
   },
   methods: {
+    // 📤 Méthode appelée lorsqu'on saisit quelque chose dans le champ
     updateValue(event) {
-      this.$emit("update:modelValue", event.target.value); // Émettre l'événement update:modelValue
+      // Émet un événement personnalisé pour mettre à jour la valeur dans le parent
+      this.$emit("update:modelValue", event.target.value);
     },
   },
 };
 </script>
-
-<style scoped>
-/* Styles spécifiques au champ de saisie de l'email */
-</style>
+<!-- Ce script est la base d’un composant d’entrée réutilisable, qui fonctionne avec v-model. -->

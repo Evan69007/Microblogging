@@ -62,51 +62,72 @@
 </template>
 
 <script setup>
+// 🔧 Imports nécessaires de Vue
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import PostCard from "@/components/Posts/PostCard.vue"; // Importer le composant PostCard
+
+// 🧩 Composant pour afficher un post (utile pour l’édition visuelle si besoin)
+import PostCard from "@/components/Posts/PostCard.vue";
+
+// 🌐 API centralisée pour les appels backend
 import api from "@/services/api.js";
 
-// Récupérer les paramètres de la route pour obtenir l'id du post
+// 📍 Récupération de l'ID du post à modifier depuis l'URL
 const route = useRoute();
 const router = useRouter();
 const postId = route.params.id;
+
+// ✏️ Données du post à modifier
 const postToEdit = ref({
   titre: "",
   description: "",
   hashtags: "",
 });
+
+// 🔄 Indicateur de chargement
 const isLoading = ref(false);
 
-// Données simulées pour les posts
-
-// Trouver le post à modifier en fonction de l'id passé dans l'URL
+// ⏱️ Dès que le composant est monté, on charge les données du post à modifier
 onMounted(async () => {
   try {
     isLoading.value = true;
+
+    // Récupération du post via son ID
     const post = await api.getPost(postId);
+
+    // Transformation du tableau hashtags en chaîne pour l’affichage dans un input
     if (post.hashtags) {
       post.hashtags = post.hashtags.join(", ");
     }
 
+    // Mise à jour de l’état local
     postToEdit.value = post;
     isLoading.value = false;
   } catch (error) {
-    console.error(error);
+    console.error("Erreur lors du chargement du post :", error);
   }
 });
 
+// ✅ Fonction pour soumettre les modifications
 async function submitForm() {
-  postToEdit.value.hashtags = postToEdit.value.hashtags.split(", ");
-  await api.updatePost(postId, postToEdit.value);
-  router.push("/profil"); // Retour vers Profil.vue après modification
-}
+  // Transformation des hashtags string -> tableau
+  postToEdit.value.hashtags = postToEdit.value.hashtags
+    .split(",")
+    .map((tag) => tag.trim());
 
-// function updatePost(updatedPost) {
-//   postToEdit.value = updatedPost;
-// }
+  // Mise à jour du post via l’API
+  await api.updatePost(postId, postToEdit.value);
+
+  // Redirection vers la page profil après modification
+  router.push("/profil");
+}
 </script>
 
 <style scoped>
 /* Styles spécifiques à ModifPost.vue */
 </style>
+<!-- Ce script permet à un utilisateur :
+    De charger un post existant à partir de son ID
+    D’éditer les champs du post (titre, description, hashtags)
+    De soumettre la mise à jour via l’API
+    De revenir au profil une fois terminé -->
