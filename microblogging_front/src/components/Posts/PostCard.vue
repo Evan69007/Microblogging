@@ -25,16 +25,18 @@
           >{{ tag }}</span
         >
       </div>
-      <div class="flex space-x-3">
-        <span class="flex items-center">
-          <button @click="toggleLike(post.id)">
-            {{ isLiked ? "❤️" : "🤍" }}
-          </button>
-        </span>
-        <!-- <span class="flex items-center">
-          <comment-icon class="text-blue-500" /> {{ post.comments }}
-        </span> -->
-      </div>
+	  <div v-if='currentUser'>
+			<div class="flex space-x-3">
+				<span class="flex items-center">
+				<button @click="toggleLike(post.id)">
+					{{ isLiked ? "❤️" : "🤍" }}
+				</button>
+				</span>
+				<!-- <span class="flex items-center">
+				<comment-icon class="text-blue-500" /> {{ post.comments }}
+				</span> -->
+			</div>
+		</div>
     </div>
 
     <!-- Buttons to Edit and Delete the Post, only visible to the author -->
