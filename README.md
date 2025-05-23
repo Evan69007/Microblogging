@@ -1,6 +1,10 @@
 
 # Push My Code
 
+<p align="center">
+  <img src="Screenshots/Capture d'écran 2025-05-23 103439.png" alt="Logo" width="400">
+</p>
+
 ## 📌 Présentation
 
 Push My Code est une application de microblogging permettant aux utilisateurs de publier de courts messages (posts), de les liker, et de gérer leur profil utilisateur. Ce projet a été développé dans le cadre d'une formation en développement full stack.
@@ -8,6 +12,22 @@ Push My Code est une application de microblogging permettant aux utilisateurs de
 L'objectif est de simuler un mini réseau social avec une architecture moderne en front-end et back-end, reposant sur Vue.js, Laravel et une base de données PostgreSQL.
 
 ## 📸 Screenshots du projet
+
+<div style="display: flex; justify-content: space-around;">
+<img src="Screenshots/HomePageSansConnexion.png" alt="HomePageSansConnexion" width="200">
+
+<img src="Screenshots/HomePageConnecté.png" alt="HompePageConnecté" width="200">
+
+<img src="Screenshots/ConnexionPMC.png" alt="Connexion" width="200">
+
+<img src="Screenshots/ProfilPMC.png" alt="Profil" width="200">
+
+<img src="Screenshots/ModifProfilPMC.png" alt="ModifProfil" width="200">
+
+<img src="Screenshots/AjoutPostPMC.png" alt="Ajout de Post" width="200">
+
+<img src="Screenshots/CreationComptePMC.png" alt="Creation de compte" width="200">
+</div>
 
 ## 🛠️ Technologies utilisées
 
