@@ -47,7 +47,7 @@ L'objectif est de simuler un mini réseau social avec une architecture moderne e
 
 ### 1. Cloner le projet
 ```bash
-git clone https://github.com/votre-utilisateur/push-my-code.git
+git clone https://github.com/Evan69007/Microblogging.git
 cd push-my-code
 ```
 
